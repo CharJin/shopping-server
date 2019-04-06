@@ -19,6 +19,11 @@
         from os_user
         where username = #{username};
     </select>
+
+    <select id="queryAllUser" resultMap="BaseResultMap">
+        select *
+        from os_user
+    </select>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

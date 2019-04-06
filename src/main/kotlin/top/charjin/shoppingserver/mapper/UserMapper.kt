@@ -1,12 +1,14 @@
 package top.charjin.shoppingserver.mapper
 
+import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Param
-import org.springframework.stereotype.Repository
 import top.charjin.shoppingserver.entity.UserModel
 
-@Repository
+@Mapper
 interface UserMapper {
     fun queryUserByName(@Param("username") username: String?): UserModel
+
+    fun queryAllUser(): List<UserModel>
 
     fun deleteByPrimaryKey(id: Int?): Int
 

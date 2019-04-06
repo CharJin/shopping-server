@@ -10,9 +10,13 @@ import javax.annotation.Resource
 class UserServiceImpl : UserService {
 
     @Resource
-    private val userMapper: UserMapper? = null
+    private lateinit var userMapper: UserMapper
 
     override fun queryUser(username: String): UserModel {
-        return userMapper!!.queryUserByName(username)
+        return userMapper.queryUserByName(username)
+    }
+
+    override fun queryAllUser(): List<UserModel> {
+        return userMapper.queryAllUser()
     }
 }
