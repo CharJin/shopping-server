@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.charjin.shoppingserver.mapper.OsCommodityMapper">
+    <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsCommodity">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="commodity_type_id" jdbcType="INTEGER" property="commodityTypeId"/>
+        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="image" jdbcType="VARCHAR" property="image"/>
+        <result column="price" jdbcType="FLOAT" property="price"/>
+        <result column="sales_volume" jdbcType="SMALLINT" property="salesVolume"/>
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, commodity_type_id, shop_id, `name`, image, price, sales_volume, region, description
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from os_commodity
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from os_commodity
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsCommodity"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_commodity (commodity_type_id, shop_id, `name`,
+        image, price, sales_volume,
+        region, description)
+        values (#{commodityTypeId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        #{image,jdbcType=VARCHAR}, #{price,jdbcType=FLOAT}, #{salesVolume,jdbcType=SMALLINT},
+        #{region,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="top.charjin.shoppingserver.entity.OsCommodity" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_commodity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commodityTypeId != null">
+                commodity_type_id,
+            </if>
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="image != null">
+                image,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="salesVolume != null">
+                sales_volume,
+            </if>
+            <if test="region != null">
+                region,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commodityTypeId != null">
+                #{commodityTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=FLOAT},
+            </if>
+            <if test="salesVolume != null">
+                #{salesVolume,jdbcType=SMALLINT},
+            </if>
+            <if test="region != null">
+                #{region,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsCommodity">
+        <!--@mbg.generated-->
+        update os_commodity
+        <set>
+            <if test="commodityTypeId != null">
+                commodity_type_id = #{commodityTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null">
+                shop_id = #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                image = #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=FLOAT},
+            </if>
+            <if test="salesVolume != null">
+                sales_volume = #{salesVolume,jdbcType=SMALLINT},
+            </if>
+            <if test="region != null">
+                region = #{region,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsCommodity">
+        <!--@mbg.generated-->
+        update os_commodity
+        set commodity_type_id = #{commodityTypeId,jdbcType=INTEGER},
+        shop_id = #{shopId,jdbcType=INTEGER},
+        `name` = #{name,jdbcType=VARCHAR},
+        image = #{image,jdbcType=VARCHAR},
+        price = #{price,jdbcType=FLOAT},
+        sales_volume = #{salesVolume,jdbcType=SMALLINT},
+        region = #{region,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

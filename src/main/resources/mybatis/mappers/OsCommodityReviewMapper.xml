@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.charjin.shoppingserver.mapper.OsCommodityReviewMapper">
+    <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsCommodityReview">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="commodity_id" jdbcType="INTEGER" property="commodityId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, commodity_id, content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from os_commodity_review
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from os_commodity_review
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="top.charjin.shoppingserver.entity.OsCommodityReview" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_commodity_review (commodity_id, content)
+        values (#{commodityId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="top.charjin.shoppingserver.entity.OsCommodityReview" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_commodity_review
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commodityId != null">
+                commodity_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commodityId != null">
+                #{commodityId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsCommodityReview">
+        <!--@mbg.generated-->
+        update os_commodity_review
+        <set>
+            <if test="commodityId != null">
+                commodity_id = #{commodityId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsCommodityReview">
+        <!--@mbg.generated-->
+        update os_commodity_review
+        set commodity_id = #{commodityId,jdbcType=INTEGER},
+        content = #{content,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

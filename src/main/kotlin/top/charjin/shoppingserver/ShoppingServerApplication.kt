@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 class ShoppingServerApplication {
 
+    // 配置start page指向静态页面 而非控制器请求
     @RequestMapping("/")
     fun home(): String {
         return "login"

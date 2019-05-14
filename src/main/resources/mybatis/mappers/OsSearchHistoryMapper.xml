@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.charjin.shoppingserver.mapper.OsSearchHistoryMapper">
+    <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsSearchHistory">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="weight" jdbcType="SMALLINT" property="weight"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, user_id, content, weight
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from os_search_history
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from os_search_history
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="top.charjin.shoppingserver.entity.OsSearchHistory" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_search_history (user_id, content, weight
+        )
+        values (#{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{weight,jdbcType=SMALLINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="top.charjin.shoppingserver.entity.OsSearchHistory" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_search_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=SMALLINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsSearchHistory">
+        <!--@mbg.generated-->
+        update os_search_history
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=SMALLINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsSearchHistory">
+        <!--@mbg.generated-->
+        update os_search_history
+        set user_id = #{userId,jdbcType=INTEGER},
+        content = #{content,jdbcType=VARCHAR},
+        weight = #{weight,jdbcType=SMALLINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
