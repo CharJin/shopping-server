@@ -2,8 +2,13 @@ package top.charjin.shoppingserver.entity
 
 import java.io.Serializable
 
-class OsCommodityReview : Serializable {
+class OsGoodsReview : Serializable {
     var id: Int? = null
+
+    /**
+     * 外键,用户id
+     */
+    var userId: Int? = null
 
     /**
      * 外键,商品id

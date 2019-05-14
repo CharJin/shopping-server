@@ -24,6 +24,7 @@ create table os_shop
 (
     id           int primary key auto_increment,
     shop_type_id int comment '商品类型(id)',
+    name         varchar(30) not null unique comment '店铺名称',
     foreign key (shop_type_id) references os_shop_type (id) -- 设置外键
 );
 
@@ -46,7 +47,7 @@ create table os_commodity
     sales_volume      smallint default 0 comment '销量',
     region            varchar(30) not null comment '商品地区',
     description       varchar(200) comment '商品描述信息',
-    foreign key (commodity_type_id) references os_commodity (id),
+    foreign key (commodity_type_id) references os_goods (id),
     foreign key (shop_id) references os_shop_type (id) -- 设置外键
 );
 
@@ -55,9 +56,11 @@ create table os_commodity
 create table os_commodity_review
 (
     id           int primary key auto_increment,
+    user_id      int comment '外键,用户id',
     commodity_id int comment '外键,商品id',
     content      varchar(160) comment '评论内容,80个汉字以内',
-    foreign key (commodity_id) references os_commodity (id)
+    foreign key (user_id) references os_user (id),
+    foreign key (commodity_id) references os_goods (id)
 );
 
 -- 购物车表
@@ -66,8 +69,9 @@ create table os_cart
     id           int primary key auto_increment,
     user_id      int comment '外键,用户id',
     commodity_id int comment '外键,商品id',
+    number       int not null default 1 comment '该商品的数量', #设默认值为1 便于添加测试数据
     foreign key (user_id) references os_user (id),
-    foreign key (commodity_id) references os_commodity (id)
+    foreign key (commodity_id) references os_goods (id)
 );
 
 -- 订单表
@@ -104,5 +108,38 @@ create table os_collection
     user_id      int comment '外键,用户id',
     commodity_id int comment '外键,商品id',
     foreign key (user_id) references os_user (id),
-    foreign key (commodity_id) references os_commodity (id)
+    foreign key (commodity_id) references os_goods (id)
 );
+
+
+
+# 基本查询
+# 插入商品类型
+insert into os_goods_type
+values (null, '电子');
+insert into os_goods_type
+values (null, '生活');
+insert into os_goods_type
+values (null, '男装');
+insert into os_goods_type
+values (null, '女装');
+insert into os_goods_type
+values (null, '水果');
+insert into os_goods_type
+values (null, '书籍');
+insert into os_goods_type
+values (null, '运动');
+
+# 插入商品
+# insert into os_commodity ()
+# values ();
+
+# 便于数据的表示,数据做两次查询 先查店铺, 再查商品
+
+select distinct *
+from os_cart,
+     os_goods,
+     os_shop
+where os_cart.commodity_id = os_goods.id
+  and os_shop.id = os_goods.shop_id
+  and user_id = 1

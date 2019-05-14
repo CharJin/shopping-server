@@ -2,7 +2,7 @@ package top.charjin.shoppingserver.entity
 
 import java.io.Serializable
 
-class OsCommodityType : Serializable {
+class OsGoodsType : Serializable {
     var id: Int? = null
 
     /**

@@ -5,6 +5,8 @@ import java.io.Serializable
 class OsShop : Serializable {
     var id: Int? = null
 
+    var name: String? = null
+
     /**
      * 商品类型(id)
      */

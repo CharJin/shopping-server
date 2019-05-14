@@ -4,11 +4,12 @@
     <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsShop">
         <!--@mbg.generated-->
         <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="shop_type_id" jdbcType="INTEGER" property="shopTypeId"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, shop_type_id
+        id, `name`, shop_type_id
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -25,19 +26,25 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsShop"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_shop (shop_type_id)
-        values (#{shopTypeId,jdbcType=INTEGER})
+        insert into os_shop (`name`, shop_type_id)
+        values (#{name,jdbcType=VARCHAR}, #{shopTypeId,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
             parameterType="top.charjin.shoppingserver.entity.OsShop" useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into os_shop
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                `name`,
+            </if>
             <if test="shopTypeId != null">
                 shop_type_id,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
             <if test="shopTypeId != null">
                 #{shopTypeId,jdbcType=INTEGER},
             </if>
@@ -47,6 +54,9 @@
         <!--@mbg.generated-->
         update os_shop
         <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
             <if test="shopTypeId != null">
                 shop_type_id = #{shopTypeId,jdbcType=INTEGER},
             </if>
@@ -56,7 +66,8 @@
     <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsShop">
         <!--@mbg.generated-->
         update os_shop
-        set shop_type_id = #{shopTypeId,jdbcType=INTEGER}
+        set `name` = #{name,jdbcType=VARCHAR},
+        shop_type_id = #{shopTypeId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

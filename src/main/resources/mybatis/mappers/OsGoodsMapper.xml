@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.charjin.shoppingserver.mapper.OsCommodityMapper">
-    <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsCommodity">
+<mapper namespace="top.charjin.shoppingserver.mapper.OsGoodsMapper">
+    <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsGoods">
         <!--@mbg.generated-->
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="commodity_type_id" jdbcType="INTEGER" property="commodityTypeId"/>
@@ -21,18 +21,18 @@
         <!--@mbg.generated-->
         select
         <include refid="Base_Column_List"/>
-        from os_commodity
+        from os_goods
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--@mbg.generated-->
-        delete from os_commodity
+        delete from os_goods
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsCommodity"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsGoods"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_commodity (commodity_type_id, shop_id, `name`,
+        insert into os_goods (commodity_type_id, shop_id, `name`,
         image, price, sales_volume,
         region, description)
         values (#{commodityTypeId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
@@ -40,9 +40,9 @@
         #{region,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
-            parameterType="top.charjin.shoppingserver.entity.OsCommodity" useGeneratedKeys="true">
+            parameterType="top.charjin.shoppingserver.entity.OsGoods" useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_commodity
+        insert into os_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="commodityTypeId != null">
                 commodity_type_id,
@@ -96,9 +96,9 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsCommodity">
+    <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsGoods">
         <!--@mbg.generated-->
-        update os_commodity
+        update os_goods
         <set>
             <if test="commodityTypeId != null">
                 commodity_type_id = #{commodityTypeId,jdbcType=INTEGER},
@@ -127,9 +127,9 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsCommodity">
+    <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsGoods">
         <!--@mbg.generated-->
-        update os_commodity
+        update os_goods
         set commodity_type_id = #{commodityTypeId,jdbcType=INTEGER},
         shop_id = #{shopId,jdbcType=INTEGER},
         `name` = #{name,jdbcType=VARCHAR},

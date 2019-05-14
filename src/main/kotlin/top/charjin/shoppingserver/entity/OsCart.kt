@@ -15,6 +15,8 @@ class OsCart : Serializable {
      */
     var commodityId: Int? = null
 
+    var number: Int? = null
+
     companion object {
 
         private const val serialVersionUID = 1L
