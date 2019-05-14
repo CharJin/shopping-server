@@ -14,7 +14,7 @@ class OsOrder : Serializable {
     /**
      * 外键,商品id
      */
-    var commodityId: Int? = null
+    var goodsId: Int? = null
 
     /**
      * 订单建立时间
@@ -25,6 +25,20 @@ class OsOrder : Serializable {
      * 订单是否支付
      */
     var isPaid: Boolean? = null
+
+    override fun toString(): String {
+        val sb = StringBuilder()
+        sb.append(javaClass.simpleName)
+        sb.append(" [")
+        sb.append("Hash = ").append(hashCode())
+        sb.append(", id=").append(id)
+        sb.append(", userId=").append(userId)
+        sb.append(", goodsId=").append(goodsId)
+        sb.append(", orderDate=").append(orderDate)
+        sb.append(", isPaid=").append(isPaid)
+        sb.append("]")
+        return sb.toString()
+    }
 
     companion object {
 

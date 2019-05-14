@@ -6,43 +6,43 @@ import top.charjin.shoppingserver.mapper.OsUserMapper
 import javax.annotation.Resource
 
 @Service
-open class OsUserService {
+class OsUserService {
 
     @Resource
     private val osUserMapper: OsUserMapper? = null
 
 
-    open fun deleteByPrimaryKey(id: Int?): Int {
+    fun deleteByPrimaryKey(id: Int?): Int {
         return osUserMapper!!.deleteByPrimaryKey(id)
     }
 
 
-    open fun insert(record: OsUser): Int {
+    fun insert(record: OsUser): Int {
         return osUserMapper!!.insert(record)
     }
 
 
-    open fun insertSelective(record: OsUser): Int {
+    fun insertSelective(record: OsUser): Int {
         return osUserMapper!!.insertSelective(record)
     }
 
 
-    open fun selectByPrimaryKey(id: Int?): OsUser {
+    fun selectByPrimaryKey(id: Int?): OsUser {
         return osUserMapper!!.selectByPrimaryKey(id)
     }
 
 
-    open fun updateByPrimaryKeySelective(record: OsUser): Int {
+    fun updateByPrimaryKeySelective(record: OsUser): Int {
         return osUserMapper!!.updateByPrimaryKeySelective(record)
     }
 
 
-    open fun updateByPrimaryKey(record: OsUser): Int {
+    fun updateByPrimaryKey(record: OsUser): Int {
         return osUserMapper!!.updateByPrimaryKey(record)
     }
 
 
-    open fun selectByUsernamePwd(username: String, password: String): OsUser? {
+    fun selectByUsernamePwd(username: String, password: String): OsUser? {
         return osUserMapper!!.selectByUsernamePwd(username, password)
     }
 

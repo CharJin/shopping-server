@@ -70,4 +70,15 @@
         shop_type_id = #{shopTypeId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="selectShopByUserId" parameterType="integer" resultMap="BaseResultMap">
+        select *
+        from online_shopping.os_shop
+        where id in (select online_shopping.os_goods.id
+                     from online_shopping.os_goods,
+                          online_shopping.os_cart
+                     where os_goods.id = os_cart.goods_id
+                       and os_cart.user_id = #{userId}
+        )
+    </select>
 </mapper>

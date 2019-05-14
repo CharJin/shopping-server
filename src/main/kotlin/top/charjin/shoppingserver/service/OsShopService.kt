@@ -41,4 +41,8 @@ class OsShopService {
         return osShopMapper!!.updateByPrimaryKey(record)
     }
 
+    fun selectByUserId(userId: Int): List<OsShop> {
+        return osShopMapper!!.selectShopByUserId(userId)
+    }
+
 }

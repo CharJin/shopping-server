@@ -12,6 +12,18 @@ class OsShop : Serializable {
      */
     var shopTypeId: Int? = null
 
+    override fun toString(): String {
+        val sb = StringBuilder()
+        sb.append(javaClass.simpleName)
+        sb.append(" [")
+        sb.append("Hash = ").append(hashCode())
+        sb.append(", id=").append(id)
+        sb.append(", name=").append(name)
+        sb.append(", shopTypeId=").append(shopTypeId)
+        sb.append("]")
+        return sb.toString()
+    }
+
     companion object {
 
         private const val serialVersionUID = 1L

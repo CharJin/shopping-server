@@ -41,4 +41,9 @@ class OsGoodsService {
         return osGoodsMapper!!.updateByPrimaryKey(record)
     }
 
+    fun selectGoodsByShopId(userId: Int, shopId: Int): List<OsGoods> {
+        return osGoodsMapper!!.selectGoodsByShopId(userId, shopId)
+    }
+
+
 }

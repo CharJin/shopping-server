@@ -5,13 +5,13 @@
         <!--@mbg.generated-->
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="commodity_id" jdbcType="INTEGER" property="commodityId"/>
+        <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
         <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
         <result column="is_paid" jdbcType="BOOLEAN" property="isPaid"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, user_id, commodity_id, order_date, is_paid
+        id, user_id, goods_id, order_date, is_paid
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -28,9 +28,9 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsOrder"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_order (user_id, commodity_id, order_date,
+        insert into os_order (user_id, goods_id, order_date,
         is_paid)
-        values (#{userId,jdbcType=INTEGER}, #{commodityId,jdbcType=INTEGER}, #{orderDate,jdbcType=TIMESTAMP},
+        values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{orderDate,jdbcType=TIMESTAMP},
         #{isPaid,jdbcType=BOOLEAN})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
@@ -41,8 +41,8 @@
             <if test="userId != null">
                 user_id,
             </if>
-            <if test="commodityId != null">
-                commodity_id,
+            <if test="goodsId != null">
+                goods_id,
             </if>
             <if test="orderDate != null">
                 order_date,
@@ -55,8 +55,8 @@
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="commodityId != null">
-                #{commodityId,jdbcType=INTEGER},
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
             </if>
             <if test="orderDate != null">
                 #{orderDate,jdbcType=TIMESTAMP},
@@ -73,8 +73,8 @@
             <if test="userId != null">
                 user_id = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="commodityId != null">
-                commodity_id = #{commodityId,jdbcType=INTEGER},
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=INTEGER},
             </if>
             <if test="orderDate != null">
                 order_date = #{orderDate,jdbcType=TIMESTAMP},
@@ -89,7 +89,7 @@
         <!--@mbg.generated-->
         update os_order
         set user_id = #{userId,jdbcType=INTEGER},
-        commodity_id = #{commodityId,jdbcType=INTEGER},
+        goods_id = #{goodsId,jdbcType=INTEGER},
         order_date = #{orderDate,jdbcType=TIMESTAMP},
         is_paid = #{isPaid,jdbcType=BOOLEAN}
         where id = #{id,jdbcType=INTEGER}

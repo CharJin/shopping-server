@@ -1,9 +1,9 @@
 use online_shopping;
--- 用户表
+# 用户表
 create table os_user
 (
     id            int primary key auto_increment,
-    head_portrait varchar(50) comment ' -- 头像在服务器的路径',
+    head_portrait varchar(50) comment ' # 头像在服务器的路径',
     username      varchar(30) not null comment '用户名',
     password      varchar(20) not null comment '密码',
     real_name     varchar(15) comment '真实姓名',
@@ -12,76 +12,77 @@ create table os_user
     address       varchar(100) comment '收货地址'
 );
 
--- 商店类型
+# 商店类型
 create table os_shop_type
 (
     id   int primary key auto_increment,
     type varchar(20) comment '商品类型'
 );
 
--- 商店表
+# 商店表
 create table os_shop
 (
     id           int primary key auto_increment,
     shop_type_id int comment '商品类型(id)',
     name         varchar(30) not null unique comment '店铺名称',
-    foreign key (shop_type_id) references os_shop_type (id) -- 设置外键
+    foreign key (shop_type_id) references os_shop_type (id) # 设置外键
 );
 
--- 商品类型表
-create table os_commodity_type
+# 商品类型表
+create table os_goods_type
 (
     id   int primary key auto_increment,
     type varchar(20) comment '商品类型'
 );
 
--- 商品表
-create table os_commodity
+# 商品表
+create table os_goods
 (
-    id                int primary key auto_increment,
-    commodity_type_id int comment '商品(id)',
-    shop_id           int comment '店铺(id)',
-    name              varchar(30) not null comment '商品名',
-    image             varchar(100) comment '商品展示图片,存放路径,多图片使用分隔符"^^^"',
-    price             float(6, 2) not null comment '价格',
-    sales_volume      smallint default 0 comment '销量',
-    region            varchar(30) not null comment '商品地区',
-    description       varchar(200) comment '商品描述信息',
-    foreign key (commodity_type_id) references os_goods (id),
-    foreign key (shop_id) references os_shop_type (id) -- 设置外键
+    id            int primary key auto_increment,
+    goods_type_id int comment '商品(id)',
+    shop_id       int comment '店铺(id)',
+    name          varchar(30) not null comment '商品名',
+    image         varchar(100) comment '商品展示图片,存放路径,多图片使用分隔符"^^^"',
+    price         float(6, 2) not null comment '价格',
+    sales_volume  smallint default 0 comment '销量',
+    region        varchar(30) not null comment '商品地区',
+    description   varchar(200) comment '商品描述信息',
+    foreign key (goods_type_id) references os_goods (id),
+    foreign key (shop_id) references os_shop_type (id) # 设置外键
 );
 
 
--- 商品评价表
-create table os_commodity_review
+# 商品评价表
+create table os_goods_review
 (
-    id           int primary key auto_increment,
-    user_id      int comment '外键,用户id',
-    commodity_id int comment '外键,商品id',
-    content      varchar(160) comment '评论内容,80个汉字以内',
+    id       int primary key auto_increment,
+    user_id  int comment '外键,用户id',
+    goods_id int comment '外键,商品id',
+    content  varchar(160) comment '评论内容,80个汉字以内',
     foreign key (user_id) references os_user (id),
-    foreign key (commodity_id) references os_goods (id)
+    foreign key (goods_id) references os_goods (id)
 );
 
--- 购物车表
+# 购物车表
 create table os_cart
 (
-    id           int primary key auto_increment,
-    user_id      int comment '外键,用户id',
-    commodity_id int comment '外键,商品id',
-    number       int not null default 1 comment '该商品的数量', #设默认值为1 便于添加测试数据
+    id       int primary key auto_increment,
+    user_id  int comment '外键,用户id',
+    shop_id  int comment '外键,店铺id',
+    goods_id int comment '外键,商品id',
+    number   int not null default 1 comment '该商品的数量', #设默认值为1 便于添加测试数据
     foreign key (user_id) references os_user (id),
-    foreign key (commodity_id) references os_goods (id)
+    foreign key (goods_id) references os_goods (id)
 );
 
--- 订单表
+# 订单表
 create table os_order
 (
-    id           int primary key auto_increment,
-    user_id      int comment '外键,用户id',
-    commodity_id int comment '外键,商品id',
-    order_date   datetime comment '订单建立时间',
-    is_paid      tinyint(1) comment '订单是否支付'
+    id         int primary key auto_increment,
+    user_id    int comment '外键,用户id',
+    goods_id   int comment '外键,商品id',
+    order_date datetime comment '订单建立时间',
+    is_paid    tinyint(1) comment '订单是否支付'
 );
 
 /*
@@ -101,14 +102,14 @@ create table os_search_history
     foreign key (user_id) references os_user (id)
 );
 
--- 收藏表
+# 收藏表
 create table os_collection
 (
-    id           int primary key auto_increment,
-    user_id      int comment '外键,用户id',
-    commodity_id int comment '外键,商品id',
+    id       int primary key auto_increment,
+    user_id  int comment '外键,用户id',
+    goods_id int comment '外键,商品id',
     foreign key (user_id) references os_user (id),
-    foreign key (commodity_id) references os_goods (id)
+    foreign key (goods_id) references os_goods (id)
 );
 
 
@@ -131,7 +132,7 @@ insert into os_goods_type
 values (null, '运动');
 
 # 插入商品
-# insert into os_commodity ()
+# insert into os_goods ()
 # values ();
 
 # 便于数据的表示,数据做两次查询 先查店铺, 再查商品
@@ -140,6 +141,6 @@ select distinct *
 from os_cart,
      os_goods,
      os_shop
-where os_cart.commodity_id = os_goods.id
+where os_cart.goods_id = os_goods.id
   and os_shop.id = os_goods.shop_id
   and user_id = 1

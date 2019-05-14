@@ -13,12 +13,25 @@ class OsGoodsReview : Serializable {
     /**
      * 外键,商品id
      */
-    var commodityId: Int? = null
+    var goodsId: Int? = null
 
     /**
      * 评论内容,80个汉字以内
      */
     var content: String? = null
+
+    override fun toString(): String {
+        val sb = StringBuilder()
+        sb.append(javaClass.simpleName)
+        sb.append(" [")
+        sb.append("Hash = ").append(hashCode())
+        sb.append(", id=").append(id)
+        sb.append(", userId=").append(userId)
+        sb.append(", goodsId=").append(goodsId)
+        sb.append(", content=").append(content)
+        sb.append("]")
+        return sb.toString()
+    }
 
     companion object {
 

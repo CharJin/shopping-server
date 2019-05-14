@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsGoods">
         <!--@mbg.generated-->
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="commodity_type_id" jdbcType="INTEGER" property="commodityTypeId"/>
+        <result column="goods_type_id" jdbcType="INTEGER" property="goodsTypeId"/>
         <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="image" jdbcType="VARCHAR" property="image"/>
@@ -15,7 +15,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, commodity_type_id, shop_id, `name`, image, price, sales_volume, region, description
+        id, goods_type_id, shop_id, `name`, image, price, sales_volume, region, description
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -32,10 +32,10 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsGoods"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_goods (commodity_type_id, shop_id, `name`,
+        insert into os_goods (goods_type_id, shop_id, `name`,
         image, price, sales_volume,
         region, description)
-        values (#{commodityTypeId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        values (#{goodsTypeId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
         #{image,jdbcType=VARCHAR}, #{price,jdbcType=FLOAT}, #{salesVolume,jdbcType=SMALLINT},
         #{region,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
     </insert>
@@ -44,8 +44,8 @@
         <!--@mbg.generated-->
         insert into os_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="commodityTypeId != null">
-                commodity_type_id,
+            <if test="goodsTypeId != null">
+                goods_type_id,
             </if>
             <if test="shopId != null">
                 shop_id,
@@ -70,8 +70,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="commodityTypeId != null">
-                #{commodityTypeId,jdbcType=INTEGER},
+            <if test="goodsTypeId != null">
+                #{goodsTypeId,jdbcType=INTEGER},
             </if>
             <if test="shopId != null">
                 #{shopId,jdbcType=INTEGER},
@@ -100,8 +100,8 @@
         <!--@mbg.generated-->
         update os_goods
         <set>
-            <if test="commodityTypeId != null">
-                commodity_type_id = #{commodityTypeId,jdbcType=INTEGER},
+            <if test="goodsTypeId != null">
+                goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
             </if>
             <if test="shopId != null">
                 shop_id = #{shopId,jdbcType=INTEGER},
@@ -130,7 +130,7 @@
     <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsGoods">
         <!--@mbg.generated-->
         update os_goods
-        set commodity_type_id = #{commodityTypeId,jdbcType=INTEGER},
+        set goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
         shop_id = #{shopId,jdbcType=INTEGER},
         `name` = #{name,jdbcType=VARCHAR},
         image = #{image,jdbcType=VARCHAR},
@@ -140,4 +140,23 @@
         description = #{description,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="selectGoodsByShopId" parameterType="integer" resultMap="BaseResultMap">
+        select os_goods.id,
+               goods_type_id,
+               shop_id,
+               os_goods.`name`,
+               image,
+               price,
+               sales_volume,
+               region,
+               description
+        from online_shopping.os_cart,
+             online_shopping.os_shop,
+             online_shopping.os_goods
+        where os_cart.goods_id = os_goods.id
+          and os_shop.id = os_goods.shop_id
+          and os_cart.user_id = #{userId}
+          and os_shop.id = #{shopId}
+    </select>
 </mapper>

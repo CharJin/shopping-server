@@ -40,6 +40,23 @@ class OsUser : Serializable {
      */
     var address: String? = null
 
+    override fun toString(): String {
+        val sb = StringBuilder()
+        sb.append(javaClass.simpleName)
+        sb.append(" [")
+        sb.append("Hash = ").append(hashCode())
+        sb.append(", id=").append(id)
+        sb.append(", headPortrait=").append(headPortrait)
+        sb.append(", username=").append(username)
+        sb.append(", password=").append(password)
+        sb.append(", realName=").append(realName)
+        sb.append(", sex=").append(sex)
+        sb.append(", phone=").append(phone)
+        sb.append(", address=").append(address)
+        sb.append("]")
+        return sb.toString()
+    }
+
     companion object {
 
         private const val serialVersionUID = 1L

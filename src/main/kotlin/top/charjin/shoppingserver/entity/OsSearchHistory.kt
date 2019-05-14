@@ -20,6 +20,19 @@ class OsSearchHistory : Serializable {
      */
     var weight: Short? = null
 
+    override fun toString(): String {
+        val sb = StringBuilder()
+        sb.append(javaClass.simpleName)
+        sb.append(" [")
+        sb.append("Hash = ").append(hashCode())
+        sb.append(", id=").append(id)
+        sb.append(", userId=").append(userId)
+        sb.append(", content=").append(content)
+        sb.append(", weight=").append(weight)
+        sb.append("]")
+        return sb.toString()
+    }
+
     companion object {
 
         private const val serialVersionUID = 1L

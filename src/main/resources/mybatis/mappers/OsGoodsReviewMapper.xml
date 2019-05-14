@@ -5,12 +5,12 @@
         <!--@mbg.generated-->
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="commodity_id" jdbcType="INTEGER" property="commodityId"/>
+        <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, user_id, commodity_id, content
+        id, user_id, goods_id, content
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -27,9 +27,9 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsGoodsReview"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_goods_review (user_id, commodity_id, content
+        insert into os_goods_review (user_id, goods_id, content
         )
-        values (#{userId,jdbcType=INTEGER}, #{commodityId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}
+        values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}
         )
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
@@ -40,8 +40,8 @@
             <if test="userId != null">
                 user_id,
             </if>
-            <if test="commodityId != null">
-                commodity_id,
+            <if test="goodsId != null">
+                goods_id,
             </if>
             <if test="content != null">
                 content,
@@ -51,8 +51,8 @@
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="commodityId != null">
-                #{commodityId,jdbcType=INTEGER},
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
             </if>
             <if test="content != null">
                 #{content,jdbcType=VARCHAR},
@@ -66,8 +66,8 @@
             <if test="userId != null">
                 user_id = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="commodityId != null">
-                commodity_id = #{commodityId,jdbcType=INTEGER},
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=INTEGER},
             </if>
             <if test="content != null">
                 content = #{content,jdbcType=VARCHAR},
@@ -79,7 +79,7 @@
         <!--@mbg.generated-->
         update os_goods_review
         set user_id = #{userId,jdbcType=INTEGER},
-        commodity_id = #{commodityId,jdbcType=INTEGER},
+        goods_id = #{goodsId,jdbcType=INTEGER},
         content = #{content,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
