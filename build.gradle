@@ -24,6 +24,9 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'org.springframework.boot:spring-boot-devtools:2.1.4.RELEASE'
     implementation 'org.webjars:bootstrap:4.3.1'
+    implementation 'com.alibaba:fastjson:1.2.58'
+
+
     runtimeOnly 'mysql:mysql-connector-java'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

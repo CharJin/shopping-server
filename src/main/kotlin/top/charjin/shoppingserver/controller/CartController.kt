@@ -1,11 +1,9 @@
 package top.charjin.shoppingserver.controller
 
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import top.charjin.shoppingserver.entity.OsGoods
-import top.charjin.shoppingserver.entity.OsShop
+import top.charjin.shoppingserver.model.OsCartModel
 import top.charjin.shoppingserver.service.OsCartService
 import top.charjin.shoppingserver.service.OsGoodsService
 import top.charjin.shoppingserver.service.OsShopService
@@ -25,15 +23,17 @@ class CartController {
     @Resource
     private lateinit var shopService: OsShopService
 
-    @RequestMapping("/fetch", method = [RequestMethod.GET])
-    fun fetchCartByUserId(@RequestParam("id") userId: Int): HashMap<OsShop, List<OsGoods>> {
-        var mapCart = HashMap<OsShop, List<OsGoods>>()
-        val listShop: List<OsShop> = shopService.selectByUserId(userId)
-        listShop.forEach {
-            val listGoods = goodsService.selectGoodsByShopId(userId, it.id!!)
-            mapCart[it] = listGoods
-        }
-        return mapCart
+
+    /**
+     * 根据用户id 查询购物车信息
+     */
+
+    @RequestMapping("/query-cart")
+    fun queryCartGoodsList(@RequestParam("id") userId: Int): List<OsCartModel>? {
+        val listShop = shopService.selectByUserId(userId)
+        val cartModelList = arrayListOf<OsCartModel>()
+        listShop.forEach { cartModelList.add(OsCartModel(it, goodsService.selectGoodsByShopId(userId, it.id!!))) }
+        return cartModelList
     }
 
 
