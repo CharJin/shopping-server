@@ -159,4 +159,10 @@
           and os_cart.user_id = #{userId}
           and os_shop.id = #{shopId}
     </select>
+    <select id="getGoodsByKey" resultMap="BaseResultMap">
+        select *
+        from os_goods
+        where name like concat('%', #{key,jdbcType=VARCHAR}, '%')
+
+    </select>
 </mapper>

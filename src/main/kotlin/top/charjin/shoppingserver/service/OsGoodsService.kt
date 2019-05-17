@@ -45,5 +45,13 @@ class OsGoodsService {
         return osGoodsMapper!!.selectGoodsByShopId(userId, shopId)
     }
 
+    fun selectAllGoods(): List<OsGoods>? {
+        return osGoodsMapper!!.selectAllGoods()
+    }
+
+    fun getGoodsByKey(key: String?): List<OsGoods>? {
+        return osGoodsMapper!!.getGoodsByKey(key)
+    }
+
 
 }
