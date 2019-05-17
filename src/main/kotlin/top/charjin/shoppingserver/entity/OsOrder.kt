@@ -21,10 +21,7 @@ class OsOrder : Serializable {
      */
     var orderDate: Date? = null
 
-    /**
-     * 订单是否支付
-     */
-    var isPaid: Boolean? = null
+    var orderStatus: Boolean? = null
 
     override fun toString(): String {
         val sb = StringBuilder()
@@ -35,7 +32,7 @@ class OsOrder : Serializable {
         sb.append(", userId=").append(userId)
         sb.append(", goodsId=").append(goodsId)
         sb.append(", orderDate=").append(orderDate)
-        sb.append(", isPaid=").append(isPaid)
+        sb.append(", orderStatus=").append(orderStatus)
         sb.append("]")
         return sb.toString()
     }

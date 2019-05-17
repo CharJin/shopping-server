@@ -78,11 +78,11 @@ create table os_cart
 # 订单表
 create table os_order
 (
-    id         int primary key auto_increment,
-    user_id    int comment '外键,用户id',
-    goods_id   int comment '外键,商品id',
-    order_date datetime comment '订单建立时间',
-    is_paid    tinyint(1) comment '订单是否支付'
+    id           int primary key auto_increment,
+    user_id      int comment '外键,用户id',
+    goods_id     int comment '外键,商品id',
+    order_date   datetime comment '订单建立时间',
+    order_status tinyint(1) comment '订单状态 0:待付款 1:待收货'
 );
 
 /*
