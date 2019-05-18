@@ -1,7 +1,6 @@
 package top.charjin.shoppingserver.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.jetbrains.annotations.Nullable;
 import top.charjin.shoppingserver.entity.OsGoods;
 
@@ -22,7 +21,7 @@ public interface OsGoodsMapper {
 
     List<OsGoods> selectGoodsByShopId(@Param("userId") int userId, @Param("shopId") int shopId);
 
-    @Select("select * from os_goods")
+
     List<OsGoods> selectAllGoods();
 
     List<OsGoods> getGoodsByKey(@Nullable String key);

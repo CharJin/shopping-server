@@ -112,7 +112,13 @@ create table os_collection
     foreign key (goods_id) references os_goods (id)
 );
 
-
+# 推荐搜索表
+# 不根据用户偏好设定 (其后改进)
+create table os_recommend
+(
+    id      int primary key auto_increment,
+    content varchar(20) comment '推荐搜索内容'
+);
 
 # 基本查询
 # 插入商品类型

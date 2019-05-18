@@ -165,4 +165,8 @@
         where name like concat('%', #{key,jdbcType=VARCHAR}, '%')
 
     </select>
+    <select id="selectAllGoods" resultMap="BaseResultMap">
+        select *
+        from os_goods
+    </select>
 </mapper>
