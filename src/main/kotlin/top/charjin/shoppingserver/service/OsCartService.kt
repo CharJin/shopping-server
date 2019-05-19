@@ -12,8 +12,8 @@ class OsCartService {
     private val osCartMapper: OsCartMapper? = null
 
 
-    fun deleteByPrimaryKey(id: Int?): Int {
-        return osCartMapper!!.deleteByPrimaryKey(id)
+    fun deleteByPrimaryKey(userId: Int?, goodsId: Int?): Int {
+        return osCartMapper!!.deleteByPrimaryKey(userId, goodsId)
     }
 
 
@@ -27,8 +27,8 @@ class OsCartService {
     }
 
 
-    fun selectByPrimaryKey(id: Int?): OsCart {
-        return osCartMapper!!.selectByPrimaryKey(id)
+    fun selectByPrimaryKey(userId: Int?, goodsId: Int?): OsCart? {
+        return osCartMapper!!.selectByPrimaryKey(userId, goodsId)
     }
 
 

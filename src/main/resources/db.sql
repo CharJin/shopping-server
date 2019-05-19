@@ -66,11 +66,11 @@ create table os_goods_review
 # 购物车表
 create table os_cart
 (
-    id       int primary key auto_increment,
-    user_id  int comment '外键,用户id',
-    shop_id  int comment '外键,店铺id',
-    goods_id int comment '外键,商品id',
+    user_id  int comment '主外键,用户id',
+    goods_id int comment '主外键,商品id',
     number   int not null default 1 comment '该商品的数量', #设默认值为1 便于添加测试数据
+    plan     varchar(50) comment '商品规格套餐',
+    primary key (user_id, goods_id),
     foreign key (user_id) references os_user (id),
     foreign key (goods_id) references os_goods (id)
 );

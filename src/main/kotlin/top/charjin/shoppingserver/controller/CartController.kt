@@ -3,6 +3,7 @@ package top.charjin.shoppingserver.controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import top.charjin.shoppingserver.entity.OsCart
 import top.charjin.shoppingserver.model.OsCartModel
 import top.charjin.shoppingserver.service.OsCartService
 import top.charjin.shoppingserver.service.OsGoodsService
@@ -34,6 +35,23 @@ class CartController {
         val cartModelList = arrayListOf<OsCartModel>()
         listShop.forEach { cartModelList.add(OsCartModel(it, goodsService.selectGoodsByShopId(userId, it.id!!))) }
         return cartModelList
+    }
+
+    @RequestMapping("/addGoods")
+    fun addGoods(userId: Int, goodsId: Int): Int {
+        val cart = cartService.selectByPrimaryKey(userId, goodsId)
+        return if (cart != null) {
+            cart.number++
+            cartService.updateByPrimaryKey(cart)
+            1
+        } else {
+            val newCart = OsCart()
+            newCart.userId = userId
+            newCart.goodsId = goodsId
+            newCart.number = 1
+            newCart.plan = "默认套餐"
+            cartService.insert(newCart)
+        }
     }
 
 

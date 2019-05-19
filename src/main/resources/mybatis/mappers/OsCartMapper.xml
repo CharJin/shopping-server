@@ -3,37 +3,37 @@
 <mapper namespace="top.charjin.shoppingserver.mapper.OsCartMapper">
     <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsCart">
         <!--@mbg.generated-->
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
         <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="plan" jdbcType="VARCHAR" property="plan"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, user_id, goods_id, `number`
+        user_id, goods_id, `number`, `plan`
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
         <include refid="Base_Column_List"/>
         from os_cart
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
+        and goods_id = #{goodsId,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="map">
         <!--@mbg.generated-->
         delete from os_cart
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
+        and goods_id = #{goodsId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsCart"
-            useGeneratedKeys="true">
+    <insert id="insert" parameterType="top.charjin.shoppingserver.entity.OsCart">
         <!--@mbg.generated-->
-        insert into os_cart (user_id, goods_id, `number`
-        )
-        values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}
-        )
+        insert into os_cart (user_id, goods_id, `number`,
+        `plan`)
+        values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{number,jdbcType=INTEGER},
+        #{plan,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id"
-            parameterType="top.charjin.shoppingserver.entity.OsCart" useGeneratedKeys="true">
+    <insert id="insertSelective" parameterType="top.charjin.shoppingserver.entity.OsCart">
         <!--@mbg.generated-->
         insert into os_cart
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -46,6 +46,9 @@
             <if test="number != null">
                 `number`,
             </if>
+            <if test="plan != null">
+                `plan`,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -57,31 +60,32 @@
             <if test="number != null">
                 #{number,jdbcType=INTEGER},
             </if>
+            <if test="plan != null">
+                #{plan,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsCart">
         <!--@mbg.generated-->
         update os_cart
         <set>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
-            </if>
-            <if test="goodsId != null">
-                goods_id = #{goodsId,jdbcType=INTEGER},
-            </if>
             <if test="number != null">
                 `number` = #{number,jdbcType=INTEGER},
             </if>
+            <if test="plan != null">
+                `plan` = #{plan,jdbcType=VARCHAR},
+            </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
+        and goods_id = #{goodsId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsCart">
         <!--@mbg.generated-->
         update os_cart
-        set user_id = #{userId,jdbcType=INTEGER},
-        goods_id = #{goodsId,jdbcType=INTEGER},
-        `number` = #{number,jdbcType=INTEGER}
-        where id = #{id,jdbcType=INTEGER}
+        set `number` = #{number,jdbcType=INTEGER},
+        `plan` = #{plan,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=INTEGER}
+        and goods_id = #{goodsId,jdbcType=INTEGER}
     </update>
 
 
