@@ -1,5 +1,6 @@
 package top.charjin.shoppingserver.controller
 
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -31,7 +32,10 @@ class UserController {
      * 插入与修改相同,如果操作成功均返回"1"(1条记录受影响),"0"(无记录受影响)
      */
     @RequestMapping("/register", method = [RequestMethod.POST])
-    fun registerNewUser(user: OsUser): Int = userService.insertSelective(user)
+    fun registerNewUser(@RequestBody user: OsUser): Int {
+        println(user)
+        return userService.insertSelective(user)
+    }
 
 
     /**

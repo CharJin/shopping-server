@@ -29,4 +29,10 @@ mybatis:
 
 
 
+logging:
+  level:
+    com:
+      looedu:
+        mapper: debug
+
 

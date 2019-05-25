@@ -41,5 +41,9 @@ class OsCartService {
         return osCartMapper!!.updateByPrimaryKey(record)
     }
 
+    fun updateGoodsNum(userId: Int, goodsId: Int, number: Int): Int {
+        return osCartMapper!!.updateGoodsNum(userId, goodsId, number)
+    }
+
 
 }

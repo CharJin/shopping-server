@@ -3,6 +3,7 @@ package top.charjin.shoppingserver.service
 import org.springframework.stereotype.Service
 import top.charjin.shoppingserver.entity.OsGoods
 import top.charjin.shoppingserver.mapper.OsGoodsMapper
+import top.charjin.shoppingserver.model.OsGoodsModel
 import javax.annotation.Resource
 
 @Service
@@ -41,7 +42,7 @@ class OsGoodsService {
         return osGoodsMapper!!.updateByPrimaryKey(record)
     }
 
-    fun selectGoodsByShopId(userId: Int, shopId: Int): List<OsGoods> {
+    fun selectGoodsByShopId(userId: Int, shopId: Int): List<OsGoodsModel> {
         return osGoodsMapper!!.selectGoodsByShopId(userId, shopId)
     }
 

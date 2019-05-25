@@ -3,6 +3,7 @@ package top.charjin.shoppingserver.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.jetbrains.annotations.Nullable;
 import top.charjin.shoppingserver.entity.OsGoods;
+import top.charjin.shoppingserver.model.OsGoodsModel;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface OsGoodsMapper {
 
     int updateByPrimaryKey(OsGoods record);
 
-    List<OsGoods> selectGoodsByShopId(@Param("userId") int userId, @Param("shopId") int shopId);
+    List<OsGoodsModel> selectGoodsByShopId(@Param("userId") int userId, @Param("shopId") int shopId);
 
 
     List<OsGoods> selectAllGoods();

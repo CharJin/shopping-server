@@ -13,6 +13,12 @@
         <result column="region" jdbcType="VARCHAR" property="region"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
+
+    <resultMap id="BaseResultMapGoodsModel" extends="BaseResultMap"
+               type="top.charjin.shoppingserver.model.OsGoodsModel">
+        <result column="number" jdbcType="INTEGER" property="goodsNum"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         id, goods_type_id, shop_id, `name`, image, price, sales_volume, region, description
@@ -141,7 +147,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectGoodsByShopId" parameterType="integer" resultMap="BaseResultMap">
+    <select id="selectGoodsByShopId" parameterType="integer" resultMap="BaseResultMapGoodsModel">
         select os_goods.id,
                goods_type_id,
                shop_id,
@@ -150,10 +156,11 @@
                price,
                sales_volume,
                region,
-               description
-        from online_shopping.os_cart,
-             online_shopping.os_shop,
-             online_shopping.os_goods
+               description,
+               number
+        from os_cart,
+             os_shop,
+             os_goods
         where os_cart.goods_id = os_goods.id
           and os_shop.id = os_goods.shop_id
           and os_cart.user_id = #{userId}

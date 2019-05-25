@@ -1,97 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.charjin.shoppingserver.mapper.OsOrderMapper">
-  <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsOrder">
-    <!--@mbg.generated-->
-    <id column="id" jdbcType="INTEGER" property="id"/>
-    <result column="user_id" jdbcType="INTEGER" property="userId"/>
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
-    <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
-    <result column="order_status" jdbcType="BOOLEAN" property="orderStatus"/>
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, user_id, goods_id, order_date, order_status
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <include refid="Base_Column_List"/>
-    from os_order
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from os_order
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsOrder"
-          useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into os_order (user_id, goods_id, order_date,
-    order_status)
-    values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{orderDate,jdbcType=TIMESTAMP},
-    #{orderStatus,jdbcType=BOOLEAN})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsOrder"
-          useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into os_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="goodsId != null">
-        goods_id,
-      </if>
-      <if test="orderDate != null">
-        order_date,
-      </if>
-      <if test="orderStatus != null">
-        order_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="orderDate != null">
-        #{orderDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="orderStatus != null">
-        #{orderStatus,jdbcType=BOOLEAN},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsOrder">
-    <!--@mbg.generated-->
-    update os_order
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsId != null">
+    <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsOrder">
+        <!--@mbg.generated-->
+        <id column="order_id" jdbcType="INTEGER" property="orderId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+        <result column="goods_number" jdbcType="INTEGER" property="goodsNumber"/>
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
+        <result column="order_amount" jdbcType="DECIMAL" property="orderAmount"/>
+        <result column="order_status" jdbcType="TINYINT" property="orderStatus"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime"/>
+    </resultMap>
+
+    <resultMap id="OrderModelResultMap" extends="BaseResultMap" type="top.charjin.shoppingserver.model.OsOrderModel">
+        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+        <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
+        <result column="price" jdbcType="FLOAT" property="price"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="image" jdbcType="VARCHAR" property="image"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        order_id, user_id, goods_id, goods_number, order_number, order_amount, order_status,
+        create_date, pay_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from os_order
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from os_order
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="order_id" keyProperty="orderId"
+            parameterType="top.charjin.shoppingserver.entity.OsOrder" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_order (user_id, goods_id, goods_number,
+        order_number, order_amount, order_status,
+        create_date, pay_time)
+        values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsNumber,jdbcType=INTEGER},
+        #{orderNumber,jdbcType=VARCHAR}, #{orderAmount,jdbcType=DECIMAL}, #{orderStatus,jdbcType=BOOLEAN},
+        #{createDate,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="order_id" keyProperty="orderId"
+            parameterType="top.charjin.shoppingserver.entity.OsOrder" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into os_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsNumber != null">
+                goods_number,
+            </if>
+            <if test="orderNumber != null">
+                order_number,
+            </if>
+            <if test="orderAmount != null">
+                order_amount,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="payTime != null">
+                pay_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsNumber != null">
+                #{goodsNumber,jdbcType=INTEGER},
+            </if>
+            <if test="orderNumber != null">
+                #{orderNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="orderAmount != null">
+                #{orderAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=BOOLEAN},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payTime != null">
+                #{payTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="top.charjin.shoppingserver.entity.OsOrder">
+        <!--@mbg.generated-->
+        update os_order
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsNumber != null">
+                goods_number = #{goodsNumber,jdbcType=INTEGER},
+            </if>
+            <if test="orderNumber != null">
+                order_number = #{orderNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="orderAmount != null">
+                order_amount = #{orderAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=BOOLEAN},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsOrder">
+        <!--@mbg.generated-->
+        update os_order
+        set user_id = #{userId,jdbcType=INTEGER},
         goods_id = #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="orderDate != null">
-        order_date = #{orderDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="orderStatus != null">
+        goods_number = #{goodsNumber,jdbcType=INTEGER},
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
         order_status = #{orderStatus,jdbcType=BOOLEAN},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsOrder">
-    <!--@mbg.generated-->
-    update os_order
-    set user_id = #{userId,jdbcType=INTEGER},
-    goods_id = #{goodsId,jdbcType=INTEGER},
-    order_date = #{orderDate,jdbcType=TIMESTAMP},
-    order_status = #{orderStatus,jdbcType=BOOLEAN}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+        pay_time = #{payTime,jdbcType=TIMESTAMP}
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
+    <select id="selectAllOrders" resultMap="OrderModelResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        shop_id,os_shop.name as shop_name,os_goods.name as goods_name,price,image
+        from os_order,
+        os_shop,
+        os_goods
+        where os_order.goods_id = os_goods.id
+        and os_goods.shop_id = os_shop.id
+        and os_order.user_id = #{user_id}
+    </select>
 </mapper>
