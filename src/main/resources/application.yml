@@ -7,8 +7,8 @@ server:
 
 spring:
   datasource:
-    #    url: jdbc:mysql://charjin.top:3306/OnlineShopping
-    url: jdbc:mysql:///online_shopping
+    url: jdbc:mysql://charjin.top:3306/online_shopping?useUnicode=true&characterEncoding=UTF-8
+    #    url: jdbc:mysql:///online_shopping
     username: root
     password: char0414.
     driver-class-name: com.mysql.cj.jdbc.Driver

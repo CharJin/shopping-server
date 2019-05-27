@@ -21,9 +21,16 @@ class GoodsController {
     }
 
 
+    /**
+     * 根据关键字搜索商品
+     */
     @RequestMapping("/getGoodsByKey")
     fun getAllGoods(@RequestParam("key") key: String?): List<OsGoods>? {
         return goodsService.getGoodsByKey(key)
     }
+
+
+    @RequestMapping("/getAllGoodsByShopId")
+    fun getAllGoodsByShopId(shopId: Int): List<OsGoods>? = goodsService.getAllGoodsByShopId(shopId)
 
 }

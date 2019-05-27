@@ -176,4 +176,9 @@
         select *
         from os_goods
     </select>
+    <select id="getAllGoodsByShopId" resultMap="BaseResultMap">
+        select *
+        from os_goods
+        where shop_id = #{shopId}
+    </select>
 </mapper>
