@@ -21,6 +21,10 @@ class GoodsController {
     }
 
 
+    @RequestMapping("/getAllGoodsByShopId")
+    fun getAllGoodsByShopId(shopId: Int): List<OsGoods>? = goodsService.getAllGoodsByShopId(shopId)
+
+
     /**
      * 根据关键字搜索商品
      */
@@ -30,7 +34,6 @@ class GoodsController {
     }
 
 
-    @RequestMapping("/getAllGoodsByShopId")
-    fun getAllGoodsByShopId(shopId: Int): List<OsGoods>? = goodsService.getAllGoodsByShopId(shopId)
-
+    @RequestMapping("/getGoodsById")
+    fun getGoodsById(goodsId: Int) = goodsService.selectByPrimaryKey(goodsId)
 }
