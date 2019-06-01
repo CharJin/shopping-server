@@ -9,8 +9,26 @@ create table os_user
     real_name     varchar(15) comment '真实姓名',
     sex           varchar(2) comment '性别,为了便于读取存为男,女',
     phone         varchar(20) comment '联系方式',
-    address       varchar(100) comment '收货地址'
+    address_id    int comment '默认收货地址id'
 );
+
+# 添加收货地址表
+/*
+ 搜索记录根据更新时间排序,默认收货地址排在首位
+ */
+create table os_address
+(
+    address_id     int primary key auto_increment,
+    user_id        int comment '用户id',
+    phone          varchar(20) comment '收件人电话号码',
+    province       varchar(20) comment '省',
+    city           varchar(20) comment '市',
+    district       varchar(20) comment '县/区',
+    address_detail varchar(80) comment '详细地址',
+    create_time    datetime DEFAULT CURRENT_TIMESTAMP comment '记录创建时间',
+    update_time    datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '记录更新时间',
+    foreign key (user_id) references os_user (user_id)
+) charset = utf8;
 
 # 商店类型
 create table os_shop_type
@@ -59,7 +77,7 @@ create table os_goods_review
     user_id  int comment '外键,用户id',
     goods_id int comment '外键,商品id',
     content  varchar(160) comment '评论内容,80个汉字以内',
-    foreign key (user_id) references os_user (id),
+    foreign key (user_id) references os_user (user_id),
     foreign key (goods_id) references os_goods (id)
 );
 
@@ -71,7 +89,7 @@ create table os_cart
     number   int not null default 1 comment '该商品的数量', #设默认值为1 便于添加测试数据
     plan     varchar(50) comment '商品规格套餐',
     primary key (user_id, goods_id),
-    foreign key (user_id) references os_user (id),
+    foreign key (user_id) references os_user (user_id),
     foreign key (goods_id) references os_goods (id)
 );
 
@@ -99,7 +117,7 @@ create table os_search_history
     user_id int comment '外键,用户id',
     content varchar(50) comment '搜索内容',
     weight  smallint default 0 comment '搜索权重',
-    foreign key (user_id) references os_user (id)
+    foreign key (user_id) references os_user (user_id)
 );
 
 # 收藏表
@@ -108,7 +126,7 @@ create table os_collection
     id       int primary key auto_increment,
     user_id  int comment '外键,用户id',
     goods_id int comment '外键,商品id',
-    foreign key (user_id) references os_user (id),
+    foreign key (user_id) references os_user (user_id),
     foreign key (goods_id) references os_goods (id)
 );
 

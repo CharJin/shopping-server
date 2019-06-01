@@ -3,42 +3,43 @@
 <mapper namespace="top.charjin.shoppingserver.mapper.OsUserMapper">
     <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsUser">
         <!--@mbg.generated-->
-        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="real_name" jdbcType="VARCHAR" property="realName"/>
         <result column="sex" jdbcType="VARCHAR" property="sex"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="address_id" jdbcType="INTEGER" property="addressId"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, head_portrait, username, `password`, real_name, sex, phone, address
+        user_id, head_portrait, username, nickname, `password`, real_name, sex, phone, address_id
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
         <include refid="Base_Column_List"/>
         from os_user
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--@mbg.generated-->
         delete from os_user
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsUser"
-            useGeneratedKeys="true">
+    <insert id="insert" keyColumn="user_id" keyProperty="userId"
+            parameterType="top.charjin.shoppingserver.entity.OsUser" useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_user (head_portrait, username, `password`,
-        real_name, sex, phone,
-        address)
-        values (#{headPortrait,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-        #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-        #{address,jdbcType=VARCHAR})
+        insert into os_user (head_portrait, username, nickname,
+        `password`, real_name, sex,
+        phone, address_id)
+        values (#{headPortrait,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR}, #{addressId,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    <insert id="insertSelective" keyColumn="user_id" keyProperty="userId"
             parameterType="top.charjin.shoppingserver.entity.OsUser" useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into os_user
@@ -48,6 +49,9 @@
             </if>
             <if test="username != null">
                 username,
+            </if>
+            <if test="nickname != null">
+                nickname,
             </if>
             <if test="password != null">
                 `password`,
@@ -61,8 +65,8 @@
             <if test="phone != null">
                 phone,
             </if>
-            <if test="address != null">
-                address,
+            <if test="addressId != null">
+                address_id,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -71,6 +75,9 @@
             </if>
             <if test="username != null">
                 #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
@@ -84,8 +91,8 @@
             <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},
             </if>
-            <if test="address != null">
-                #{address,jdbcType=VARCHAR},
+            <if test="addressId != null">
+                #{addressId,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -99,6 +106,9 @@
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
             </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
             <if test="password != null">
                 `password` = #{password,jdbcType=VARCHAR},
             </if>
@@ -111,24 +121,27 @@
             <if test="phone != null">
                 phone = #{phone,jdbcType=VARCHAR},
             </if>
-            <if test="address != null">
-                address = #{address,jdbcType=VARCHAR},
+            <if test="addressId != null">
+                address_id = #{addressId,jdbcType=INTEGER},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsUser">
         <!--@mbg.generated-->
         update os_user
         set head_portrait = #{headPortrait,jdbcType=VARCHAR},
         username = #{username,jdbcType=VARCHAR},
+        nickname = #{nickname,jdbcType=VARCHAR},
         `password` = #{password,jdbcType=VARCHAR},
         real_name = #{realName,jdbcType=VARCHAR},
         sex = #{sex,jdbcType=VARCHAR},
         phone = #{phone,jdbcType=VARCHAR},
-        address = #{address,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=INTEGER}
+        address_id = #{addressId,jdbcType=INTEGER}
+        where user_id = #{userId,jdbcType=INTEGER}
     </update>
+
+
     <update id="updateByUserNamePwdSelective">
         update os_user
         <set>
@@ -138,6 +151,9 @@
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
             </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
             <if test="password != null">
                 `password` = #{password,jdbcType=VARCHAR},
             </if>
@@ -150,10 +166,18 @@
             <if test="phone != null">
                 phone = #{phone,jdbcType=VARCHAR},
             </if>
-            <if test="address != null">
-                address = #{address,jdbcType=VARCHAR},
+            <if test="addressId != null">
+                address_id = #{addressId,jdbcType=INTEGER},
             </if>
         </set>
         where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </update>
+
+    <select id="selectByUsernamePwd" resultMap="BaseResultMap">
+        select *
+        from os_user
+        where username = #{username}
+          and password = #{password}
+    </select>
+
 </mapper>
