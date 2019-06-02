@@ -61,10 +61,14 @@
     </update>
 
     <select id="selectRandomly" resultMap="BaseResultMap">
+        #         select *
+#         from os_recommend
+#         where id >= (select floor(RAND() * (select MAX(id) from os_recommend)))
+#         order by id
+#         limit 4;
         select *
         from os_recommend
-        where id >= (select floor(RAND() * (select MAX(id) from os_recommend)))
-        order by id
-        limit 4;
+        order by RAND()
+        limit 4
     </select>
 </mapper>

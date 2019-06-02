@@ -17,5 +17,5 @@ public interface OsAddressMapper {
 
     int updateByPrimaryKey(OsAddress record);
 
-    List<OsAddress> getAllAddressByUserId(int userId);
+    List<OsAddress> getAllAddressByUserId(Integer userId);
 }

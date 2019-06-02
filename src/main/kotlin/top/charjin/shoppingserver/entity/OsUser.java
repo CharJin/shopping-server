@@ -33,10 +33,6 @@ public class OsUser implements Serializable {
      * 联系方式
      */
     private String phone;
-    /**
-     * 默认收货地址id
-     */
-    private Integer addressId;
 
     public Integer getUserId() {
         return userId;
@@ -102,14 +98,6 @@ public class OsUser implements Serializable {
         this.phone = phone;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -124,7 +112,6 @@ public class OsUser implements Serializable {
         sb.append(", realName=").append(realName);
         sb.append(", sex=").append(sex);
         sb.append(", phone=").append(phone);
-        sb.append(", addressId=").append(addressId);
         sb.append("]");
         return sb.toString();
     }

@@ -5,18 +5,20 @@
         <!--@mbg.generated-->
         <id column="address_id" jdbcType="INTEGER" property="addressId"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="receiver" jdbcType="VARCHAR" property="receiver"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
         <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="is_default" jdbcType="BOOLEAN" property="isDefault"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        address_id, user_id, phone, province, city, district, address_detail, create_time,
-        update_time
+        address_id, user_id, receiver, phone, province, city, district, address_detail, is_default,
+        create_time, update_time
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -33,12 +35,14 @@
     <insert id="insert" keyColumn="address_id" keyProperty="addressId"
             parameterType="top.charjin.shoppingserver.entity.OsAddress" useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_address (user_id, phone, province,
-        city, district, address_detail,
-        create_time, update_time)
-        values (#{userId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
-        #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{addressDetail,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+        insert into os_address (user_id, receiver, phone,
+        province, city, district,
+        address_detail, is_default, create_time,
+        update_time)
+        values (#{userId,jdbcType=INTEGER}, #{receiver,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR},
+        #{addressDetail,jdbcType=VARCHAR}, #{isDefault,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" keyColumn="address_id" keyProperty="addressId"
             parameterType="top.charjin.shoppingserver.entity.OsAddress" useGeneratedKeys="true">
@@ -47,6 +51,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">
                 user_id,
+            </if>
+            <if test="receiver != null">
+                receiver,
             </if>
             <if test="phone != null">
                 phone,
@@ -63,6 +70,9 @@
             <if test="addressDetail != null">
                 address_detail,
             </if>
+            <if test="isDefault != null">
+                is_default,
+            </if>
             <if test="createTime != null">
                 create_time,
             </if>
@@ -73,6 +83,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="receiver != null">
+                #{receiver,jdbcType=VARCHAR},
             </if>
             <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},
@@ -89,6 +102,9 @@
             <if test="addressDetail != null">
                 #{addressDetail,jdbcType=VARCHAR},
             </if>
+            <if test="isDefault != null">
+                #{isDefault,jdbcType=BOOLEAN},
+            </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
@@ -103,6 +119,9 @@
         <set>
             <if test="userId != null">
                 user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="receiver != null">
+                receiver = #{receiver,jdbcType=VARCHAR},
             </if>
             <if test="phone != null">
                 phone = #{phone,jdbcType=VARCHAR},
@@ -119,6 +138,9 @@
             <if test="addressDetail != null">
                 address_detail = #{addressDetail,jdbcType=VARCHAR},
             </if>
+            <if test="isDefault != null">
+                is_default = #{isDefault,jdbcType=BOOLEAN},
+            </if>
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
@@ -132,20 +154,23 @@
         <!--@mbg.generated-->
         update os_address
         set user_id = #{userId,jdbcType=INTEGER},
+        receiver = #{receiver,jdbcType=VARCHAR},
         phone = #{phone,jdbcType=VARCHAR},
         province = #{province,jdbcType=VARCHAR},
         city = #{city,jdbcType=VARCHAR},
         district = #{district,jdbcType=VARCHAR},
         address_detail = #{addressDetail,jdbcType=VARCHAR},
+        is_default = #{isDefault,jdbcType=BOOLEAN},
         create_time = #{createTime,jdbcType=TIMESTAMP},
         update_time = #{updateTime,jdbcType=TIMESTAMP}
         where address_id = #{addressId,jdbcType=INTEGER}
     </update>
-    <select id="getAllAddressByUserId" resultMap="BaseResultMap">
+
+    <select id="getAllAddressByUserId" parameterType="integer" resultMap="BaseResultMap">
         select *
         from os_address
-        where user_id = #{userId}
-        order by update_time desc
-
+        where user_id = 1
+        order by (case when is_default = 1 THEN 1 else 2 end), #把默认地址排在第一个
+                 update_time desc
     </select>
 </mapper>
