@@ -43,5 +43,7 @@ class OsAddressService {
 
     fun getAllAddressByUserId(userId: Int): List<OsAddress>? = addressMapper.getAllAddressByUserId(userId)
 
+    fun resetDefaultAddress(userId: Int): Int = addressMapper.resetDefaultAddress(userId)
+
 
 }

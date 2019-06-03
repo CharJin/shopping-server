@@ -1,5 +1,6 @@
 package top.charjin.shoppingserver.mapper;
 
+import org.apache.ibatis.annotations.Update;
 import top.charjin.shoppingserver.entity.OsAddress;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface OsAddressMapper {
     int updateByPrimaryKey(OsAddress record);
 
     List<OsAddress> getAllAddressByUserId(Integer userId);
+
+    @Update("update os_address set is_default = 0 where user_id = #{userId} and is_default = 1")
+    int resetDefaultAddress(int userId);
 }
