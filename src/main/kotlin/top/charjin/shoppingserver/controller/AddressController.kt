@@ -21,8 +21,10 @@ class AddressController {
 
     @RequestMapping("/add", method = [RequestMethod.POST])
     fun addAddress(@RequestBody address: OsAddress): Int {
-        println("Hello : ")
-        println(address)
+        if (address.isDefault) {
+            // 把用户的默认地址设置为非默认状态
+            addressService.resetDefaultAddress(address.userId)
+        }
         return addressService.insertSelective(address)
     }
 
@@ -41,5 +43,9 @@ class AddressController {
         return addressService.updateByPrimaryKeySelective(address)
     }
 
-
+    /**
+     * 更新新地址 判断该项是否为默认地址，并在数据库中对其做修改
+     */
+    @RequestMapping("/deleteById")
+    fun deleteById(addressId: Int): Int = addressService.deleteByPrimaryKey(addressId)
 }
