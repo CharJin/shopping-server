@@ -8,13 +8,13 @@ import top.charjin.shoppingserver.model.OsGoodsModel;
 import java.util.List;
 
 public interface OsGoodsMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer goodsId);
 
     int insert(OsGoods record);
 
     int insertSelective(OsGoods record);
 
-    OsGoods selectByPrimaryKey(Integer id);
+    OsGoods selectByPrimaryKey(Integer goodsId);
 
     int updateByPrimaryKeySelective(OsGoods record);
 
@@ -22,11 +22,9 @@ public interface OsGoodsMapper {
 
     List<OsGoodsModel> selectGoodsByShopId(@Param("userId") int userId, @Param("shopId") int shopId);
 
-
     List<OsGoods> selectAllGoods();
 
     List<OsGoods> getGoodsByKey(@Nullable String key);
-
 
     List<OsGoods> getAllGoodsByShopId(@Param("shopId") int shopId);
 }

@@ -41,7 +41,7 @@ create table os_shop_type
 create table os_shop
 (
     id           int primary key auto_increment,
-    shop_type_id int comment '商品类型(id)',
+    shop_type_id int comment '商品类型(shopId)',
     name         varchar(30) not null unique comment '店铺名称',
     foreign key (shop_type_id) references os_shop_type (id) # 设置外键
 );
@@ -57,15 +57,15 @@ create table os_goods_type
 create table os_goods
 (
     id            int primary key auto_increment,
-    goods_type_id int comment '商品(id)',
-    shop_id       int comment '店铺(id)',
+    goods_type_id int comment '商品(shopId)',
+    shop_id       int comment '店铺(shopId)',
     name          varchar(30) not null comment '商品名',
     image         varchar(100) comment '商品展示图片,存放路径,多图片使用分隔符"^^^"',
     price         float(6, 2) not null comment '价格',
     sales_volume  smallint default 0 comment '销量',
     region        varchar(30) not null comment '商品地区',
     description   varchar(200) comment '商品描述信息',
-    foreign key (goods_type_id) references os_goods (id),
+    foreign key (goods_type_id) references os_goods (goods_id),
     foreign key (shop_id) references os_shop_type (id) # 设置外键
 );
 
@@ -78,7 +78,7 @@ create table os_goods_review
     goods_id int comment '外键,商品id',
     content  varchar(160) comment '评论内容,80个汉字以内',
     foreign key (user_id) references os_user (user_id),
-    foreign key (goods_id) references os_goods (id)
+    foreign key (goods_id) references os_goods (goods_id)
 );
 
 # 购物车表
@@ -90,7 +90,7 @@ create table os_cart
     plan     varchar(50) comment '商品规格套餐',
     primary key (user_id, goods_id),
     foreign key (user_id) references os_user (user_id),
-    foreign key (goods_id) references os_goods (id)
+    foreign key (goods_id) references os_goods (goods_id)
 );
 
 # 订单表
@@ -127,7 +127,7 @@ create table os_collection
     user_id  int comment '外键,用户id',
     goods_id int comment '外键,商品id',
     foreign key (user_id) references os_user (user_id),
-    foreign key (goods_id) references os_goods (id)
+    foreign key (goods_id) references os_goods (goods_id)
 );
 
 # 推荐搜索表

@@ -3,25 +3,25 @@
 <mapper namespace="top.charjin.shoppingserver.mapper.OsShopMapper">
     <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsShop">
         <!--@mbg.generated-->
-        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="shop_id" jdbcType="INTEGER" property="shopId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="shop_type_id" jdbcType="INTEGER" property="shopTypeId"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, `name`, shop_type_id
+        shop_id, `name`, shop_type_id
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
         <include refid="Base_Column_List"/>
         from os_shop
-        where id = #{id,jdbcType=INTEGER}
+        where shop_id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--@mbg.generated-->
         delete from os_shop
-        where id = #{id,jdbcType=INTEGER}
+        where shop_id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.charjin.shoppingserver.entity.OsShop"
             useGeneratedKeys="true">
@@ -61,24 +61,24 @@
                 shop_type_id = #{shopTypeId,jdbcType=INTEGER},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where shop_id = #{shopId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsShop">
         <!--@mbg.generated-->
         update os_shop
         set `name` = #{name,jdbcType=VARCHAR},
         shop_type_id = #{shopTypeId,jdbcType=INTEGER}
-        where id = #{id,jdbcType=INTEGER}
+        where shop_id = #{shopId,jdbcType=INTEGER}
     </update>
 
     <select id="selectShopByUserId" parameterType="integer" resultMap="BaseResultMap">
         select *
         from os_shop
-        where id in (select distinct os_goods.shop_id
-                     from os_goods,
-                          os_cart
-                     where os_goods.id = os_cart.goods_id
-                       and os_cart.user_id = #{userId}
+        where shop_id in (select distinct os_goods.shop_id
+                          from os_goods,
+                               os_cart
+                          where os_goods.goods_id = os_cart.goods_id
+                            and os_cart.user_id = #{userId}
         )
     </select>
 </mapper>

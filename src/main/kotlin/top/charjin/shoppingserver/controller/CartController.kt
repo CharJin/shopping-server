@@ -33,7 +33,7 @@ class CartController {
     fun queryCartGoodsList(@RequestParam("userId") userId: Int): List<OsCartModel>? {
         val listShop = shopService.selectByUserId(userId)
         val cartModelList = arrayListOf<OsCartModel>()
-        listShop.forEach { cartModelList.add(OsCartModel(it, goodsService.selectGoodsByShopId(userId, it.id!!))) }
+        listShop.forEach { cartModelList.add(OsCartModel(it, goodsService.selectGoodsByShopId(userId, it.shopId!!))) }
         return cartModelList
     }
 

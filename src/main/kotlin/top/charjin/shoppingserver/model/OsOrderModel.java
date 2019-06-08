@@ -1,55 +1,39 @@
 package top.charjin.shoppingserver.model;
 
 
+import top.charjin.shoppingserver.entity.OsAddress;
 import top.charjin.shoppingserver.entity.OsOrder;
+import top.charjin.shoppingserver.entity.OsOrderDetail;
+import top.charjin.shoppingserver.entity.OsShop;
+
+import java.util.List;
 
 public class OsOrderModel extends OsOrder {
-    private int shopId;
-    private String shopName;
+    private OsShop shop;
+    private OsAddress address;
+    private List<OsOrderDetail> orderDetail;
 
-
-    private double price;
-    private String goodsName;
-    private String image;
-
-
-    public int getShopId() {
-        return shopId;
+    public OsShop getShop() {
+        return shop;
     }
 
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
+    public void setShop(OsShop shop) {
+        this.shop = shop;
     }
 
-    public String getShopName() {
-        return shopName;
+    public OsAddress getAddress() {
+        return address;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setAddress(OsAddress address) {
+        this.address = address;
     }
 
-    public double getPrice() {
-        return price;
+    public List<OsOrderDetail> getOrderDetail() {
+        return orderDetail;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setOrderDetail(List<OsOrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
     }
 }

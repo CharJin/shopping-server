@@ -8,8 +8,8 @@ import top.charjin.shoppingserver.service.OsGoodsService
 import javax.annotation.Resource
 
 
-@RequestMapping("/goods")
 @RestController
+@RequestMapping("/goods")
 class GoodsController {
 
     @Resource

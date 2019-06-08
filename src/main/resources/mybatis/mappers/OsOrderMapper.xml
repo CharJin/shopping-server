@@ -5,28 +5,77 @@
         <!--@mbg.generated-->
         <id column="order_id" jdbcType="INTEGER" property="orderId"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
-        <result column="goods_number" jdbcType="INTEGER" property="goodsNumber"/>
-        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
-        <result column="order_amount" jdbcType="DECIMAL" property="orderAmount"/>
+        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+        <result column="address_id" jdbcType="INTEGER" property="addressId"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="order_amount_total" jdbcType="FLOAT" property="orderAmountTotal"/>
+        <result column="order_amount_actual" jdbcType="FLOAT" property="orderAmountActual"/>
+        <result column="order_freight" jdbcType="INTEGER" property="orderFreight"/>
+        <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime"/>
+        <result column="order_pay_time" jdbcType="TIMESTAMP" property="orderPayTime"/>
+        <result column="order_fulfil_time" jdbcType="TIMESTAMP" property="orderFulfilTime"/>
         <result column="order_status" jdbcType="TINYINT" property="orderStatus"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime"/>
+        <result column="logistics_no" jdbcType="VARCHAR" property="logisticsNo"/>
+        <result column="pay_channel" jdbcType="INTEGER" property="payChannel"/>
     </resultMap>
 
-    <resultMap id="OrderModelResultMap" extends="BaseResultMap" type="top.charjin.shoppingserver.model.OsOrderModel">
-        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
-        <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
-        <result column="price" jdbcType="FLOAT" property="price"/>
-        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
-        <result column="image" jdbcType="VARCHAR" property="image"/>
+    <resultMap id="BaseResultMapCascade" type="top.charjin.shoppingserver.model.OsOrderModel"
+               extends="BaseResultMap">
+        <association property="shop" javaType="top.charjin.shoppingserver.entity.OsShop">
+            <id property="shopId" column="shop_id"/>
+            <result property="name" column="name"/>
+            <result property="shopTypeId" column="shop_type_id"/>
+        </association>
+
+        <association property="address" javaType="top.charjin.shoppingserver.entity.OsAddress">
+            <id property="userId" column="user_id"/>
+            <result column="address_id" jdbcType="INTEGER" property="addressId"/>
+            <result column="receiver" jdbcType="VARCHAR" property="receiver"/>
+            <result column="phone" jdbcType="VARCHAR" property="phone"/>
+            <result column="province" jdbcType="VARCHAR" property="province"/>
+            <result column="city" jdbcType="VARCHAR" property="city"/>
+            <result column="district" jdbcType="VARCHAR" property="district"/>
+            <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+            <result column="is_default" jdbcType="BOOLEAN" property="isDefault"/>
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        </association>
+
+        <collection property="orderDetail" ofType="top.charjin.shoppingserver.entity.OsOrderDetail">
+            <id property="orderId" javaType="INTEGER" column="order_id"/>
+            <result column="order_detail_id" jdbcType="INTEGER" property="orderDetailId"/>
+            <result column="order_id" jdbcType="INTEGER" property="orderId"/>
+            <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+            <result column="goods_price" jdbcType="FLOAT" property="goodsPrice"/>
+            <result column="goods_mode" jdbcType="VARCHAR" property="goodsMode"/>
+            <result column="goods_mode_params" jdbcType="VARCHAR" property="goodsModeParams"/>
+            <result column="goods_num" jdbcType="INTEGER" property="goodsNum"/>
+            <result column="goods_amount_total" jdbcType="FLOAT" property="goodsAmountTotal"/>
+            <result column="remark" jdbcType="VARCHAR" property="remark"/>
+            <result column="is_exists" jdbcType="BOOLEAN" property="isExists"/>
+
+            <association property="goods" javaType="top.charjin.shoppingserver.entity.OsGoods">
+                <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+                <result column="goods_type_id" jdbcType="INTEGER" property="goodsTypeId"/>
+                <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+                <result column="name" jdbcType="VARCHAR" property="name"/>
+                <result column="image" jdbcType="VARCHAR" property="image"/>
+                <result column="price" jdbcType="FLOAT" property="price"/>
+                <result column="sales_volume" jdbcType="SMALLINT" property="salesVolume"/>
+                <result column="region" jdbcType="VARCHAR" property="region"/>
+                <result column="description" jdbcType="VARCHAR" property="description"/>
+            </association>
+        </collection>
+
+
     </resultMap>
 
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        order_id, user_id, goods_id, goods_number, order_number, order_amount, order_status,
-        create_date, pay_time
+        order_id, user_id, shop_id, address_id, order_no, order_amount_total, order_amount_actual,
+        order_freight, order_create_time, order_pay_time, order_fulfil_time, order_status,
+        logistics_no, pay_channel
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -40,70 +89,108 @@
         delete from os_order
         where order_id = #{orderId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="order_id" keyProperty="orderId"
-            parameterType="top.charjin.shoppingserver.entity.OsOrder" useGeneratedKeys="true">
+    <insert id="insert" parameterType="top.charjin.shoppingserver.entity.OsOrder">
         <!--@mbg.generated-->
-        insert into os_order (user_id, goods_id, goods_number,
-        order_number, order_amount, order_status,
-        create_date, pay_time)
-        values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsNumber,jdbcType=INTEGER},
-        #{orderNumber,jdbcType=VARCHAR}, #{orderAmount,jdbcType=DECIMAL}, #{orderStatus,jdbcType=BOOLEAN},
-        #{createDate,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP})
+        insert into os_order (order_id, user_id, shop_id,
+        address_id, order_no, order_amount_total,
+        order_amount_actual, order_freight, order_create_time,
+        order_pay_time, order_fulfil_time, order_status,
+        logistics_no, pay_channel)
+        values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER},
+        #{addressId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{orderAmountTotal,jdbcType=FLOAT},
+        #{orderAmountActual,jdbcType=DECIMAL}, #{orderFreight,jdbcType=INTEGER}, #{orderCreateTime,jdbcType=TIMESTAMP},
+        #{orderPayTime,jdbcType=TIMESTAMP}, #{orderFulfilTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT},
+        #{logisticsNo,jdbcType=VARCHAR}, #{payChannel,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" keyColumn="order_id" keyProperty="orderId"
-            parameterType="top.charjin.shoppingserver.entity.OsOrder" useGeneratedKeys="true">
+    <insert id="insertSelective" parameterType="top.charjin.shoppingserver.entity.OsOrder">
         <!--@mbg.generated-->
         insert into os_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
             <if test="userId != null">
                 user_id,
             </if>
-            <if test="goodsId != null">
-                goods_id,
+            <if test="shopId != null">
+                shop_id,
             </if>
-            <if test="goodsNumber != null">
-                goods_number,
+            <if test="addressId != null">
+                address_id,
             </if>
-            <if test="orderNumber != null">
-                order_number,
+            <if test="orderNo != null">
+                order_no,
             </if>
-            <if test="orderAmount != null">
-                order_amount,
+            <if test="orderAmountTotal != null">
+                order_amount_total,
+            </if>
+            <if test="orderAmountActual != null">
+                order_amount_actual,
+            </if>
+            <if test="orderFreight != null">
+                order_freight,
+            </if>
+            <if test="orderCreateTime != null">
+                order_create_time,
+            </if>
+            <if test="orderPayTime != null">
+                order_pay_time,
+            </if>
+            <if test="orderFulfilTime != null">
+                order_fulfil_time,
             </if>
             <if test="orderStatus != null">
                 order_status,
             </if>
-            <if test="createDate != null">
-                create_date,
+            <if test="logisticsNo != null">
+                logistics_no,
             </if>
-            <if test="payTime != null">
-                pay_time,
+            <if test="payChannel != null">
+                pay_channel,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="goodsId != null">
-                #{goodsId,jdbcType=INTEGER},
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
             </if>
-            <if test="goodsNumber != null">
-                #{goodsNumber,jdbcType=INTEGER},
+            <if test="addressId != null">
+                #{addressId,jdbcType=INTEGER},
             </if>
-            <if test="orderNumber != null">
-                #{orderNumber,jdbcType=VARCHAR},
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=VARCHAR},
             </if>
-            <if test="orderAmount != null">
-                #{orderAmount,jdbcType=DECIMAL},
+            <if test="orderAmountTotal != null">
+                #{orderAmountTotal,jdbcType=FLOAT},
+            </if>
+            <if test="orderAmountActual != null">
+                #{orderAmountActual,jdbcType=DECIMAL},
+            </if>
+            <if test="orderFreight != null">
+                #{orderFreight,jdbcType=INTEGER},
+            </if>
+            <if test="orderCreateTime != null">
+                #{orderCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderPayTime != null">
+                #{orderPayTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderFulfilTime != null">
+                #{orderFulfilTime,jdbcType=TIMESTAMP},
             </if>
             <if test="orderStatus != null">
-                #{orderStatus,jdbcType=BOOLEAN},
+                #{orderStatus,jdbcType=TINYINT},
             </if>
-            <if test="createDate != null">
-                #{createDate,jdbcType=TIMESTAMP},
+            <if test="logisticsNo != null">
+                #{logisticsNo,jdbcType=VARCHAR},
             </if>
-            <if test="payTime != null">
-                #{payTime,jdbcType=TIMESTAMP},
+            <if test="payChannel != null">
+                #{payChannel,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -114,26 +201,41 @@
             <if test="userId != null">
                 user_id = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="goodsId != null">
-                goods_id = #{goodsId,jdbcType=INTEGER},
+            <if test="shopId != null">
+                shop_id = #{shopId,jdbcType=INTEGER},
             </if>
-            <if test="goodsNumber != null">
-                goods_number = #{goodsNumber,jdbcType=INTEGER},
+            <if test="addressId != null">
+                address_id = #{addressId,jdbcType=INTEGER},
             </if>
-            <if test="orderNumber != null">
-                order_number = #{orderNumber,jdbcType=VARCHAR},
+            <if test="orderNo != null">
+                order_no = #{orderNo,jdbcType=VARCHAR},
             </if>
-            <if test="orderAmount != null">
-                order_amount = #{orderAmount,jdbcType=DECIMAL},
+            <if test="orderAmountTotal != null">
+                order_amount_total = #{orderAmountTotal,jdbcType=FLOAT},
+            </if>
+            <if test="orderAmountActual != null">
+                order_amount_actual = #{orderAmountActual,jdbcType=DECIMAL},
+            </if>
+            <if test="orderFreight != null">
+                order_freight = #{orderFreight,jdbcType=INTEGER},
+            </if>
+            <if test="orderCreateTime != null">
+                order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderPayTime != null">
+                order_pay_time = #{orderPayTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderFulfilTime != null">
+                order_fulfil_time = #{orderFulfilTime,jdbcType=TIMESTAMP},
             </if>
             <if test="orderStatus != null">
-                order_status = #{orderStatus,jdbcType=BOOLEAN},
+                order_status = #{orderStatus,jdbcType=TINYINT},
             </if>
-            <if test="createDate != null">
-                create_date = #{createDate,jdbcType=TIMESTAMP},
+            <if test="logisticsNo != null">
+                logistics_no = #{logisticsNo,jdbcType=VARCHAR},
             </if>
-            <if test="payTime != null">
-                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            <if test="payChannel != null">
+                pay_channel = #{payChannel,jdbcType=INTEGER},
             </if>
         </set>
         where order_id = #{orderId,jdbcType=INTEGER}
@@ -142,24 +244,51 @@
         <!--@mbg.generated-->
         update os_order
         set user_id = #{userId,jdbcType=INTEGER},
-        goods_id = #{goodsId,jdbcType=INTEGER},
-        goods_number = #{goodsNumber,jdbcType=INTEGER},
-        order_number = #{orderNumber,jdbcType=VARCHAR},
-        order_amount = #{orderAmount,jdbcType=DECIMAL},
-        order_status = #{orderStatus,jdbcType=BOOLEAN},
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-        pay_time = #{payTime,jdbcType=TIMESTAMP}
+        shop_id = #{shopId,jdbcType=INTEGER},
+        address_id = #{addressId,jdbcType=INTEGER},
+        order_no = #{orderNo,jdbcType=VARCHAR},
+        order_amount_total = #{orderAmountTotal,jdbcType=FLOAT},
+        order_amount_actual = #{orderAmountActual,jdbcType=DECIMAL},
+        order_freight = #{orderFreight,jdbcType=INTEGER},
+        order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+        order_pay_time = #{orderPayTime,jdbcType=TIMESTAMP},
+        order_fulfil_time = #{orderFulfilTime,jdbcType=TIMESTAMP},
+        order_status = #{orderStatus,jdbcType=TINYINT},
+        logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+        pay_channel = #{payChannel,jdbcType=INTEGER}
         where order_id = #{orderId,jdbcType=INTEGER}
     </update>
-    <select id="selectAllOrders" resultMap="OrderModelResultMap">
-        select
-        <include refid="Base_Column_List"/>,
-        shop_id,os_shop.name as shop_name,os_goods.name as goods_name,price,image
+
+    <!--    <resultMap extends="BaseResultMap" id="OrderModelResultMap" type="top.charjin.shoppingserver.model.OsOrderModel">-->
+    <!--        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>-->
+    <!--        <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>-->
+    <!--        <result column="price" jdbcType="FLOAT" property="price"/>-->
+    <!--        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>-->
+    <!--        <result column="image" jdbcType="VARCHAR" property="image"/>-->
+    <!--    </resultMap>-->
+    <select id="selectAllOrders" resultMap="BaseResultMapCascade">
+        select *
         from os_order,
-        os_shop,
-        os_goods
-        where os_order.goods_id = os_goods.id
-        and os_goods.shop_id = os_shop.id
-        and os_order.user_id = #{user_id}
+             os_shop,
+             os_address,
+             os_order_detail,
+             os_goods
+        where os_shop.shop_id = os_order.shop_id
+          and os_address.user_id = os_order.user_id
+          and os_order.user_id = #{user_id}
+          and os_order_detail.order_id = os_order.order_id
     </select>
+
+
+    <!--  <select shopId="selectAllOrders" resultMap="OrderModelResultMap">
+          select
+          <include refid="Base_Column_List" />,
+          shop_id,os_shop.name as shop_name,os_goods.name as goods_name,price,image
+          from os_order,
+          os_shop,
+          os_goods
+          where os_order.shop_id = os_goods.shopId
+          and os_goods.shop_id = os_shop.shopId
+          and os_order.user_id = #{user_id}
+      </select>-->
 </mapper>

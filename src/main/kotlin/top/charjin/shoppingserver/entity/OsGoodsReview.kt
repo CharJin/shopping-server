@@ -25,7 +25,7 @@ class OsGoodsReview : Serializable {
         sb.append(javaClass.simpleName)
         sb.append(" [")
         sb.append("Hash = ").append(hashCode())
-        sb.append(", id=").append(id)
+        sb.append(", shopId=").append(id)
         sb.append(", userId=").append(userId)
         sb.append(", goodsId=").append(goodsId)
         sb.append(", content=").append(content)

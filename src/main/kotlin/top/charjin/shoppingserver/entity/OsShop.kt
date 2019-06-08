@@ -3,12 +3,12 @@ package top.charjin.shoppingserver.entity
 import java.io.Serializable
 
 class OsShop : Serializable {
-    var id: Int? = null
+    var shopId: Int? = null
 
     var name: String? = null
 
     /**
-     * 商品类型(id)
+     * 商品类型(shopId)
      */
     var shopTypeId: Int? = null
 
@@ -17,7 +17,7 @@ class OsShop : Serializable {
         sb.append(javaClass.simpleName)
         sb.append(" [")
         sb.append("Hash = ").append(hashCode())
-        sb.append(", id=").append(id)
+        sb.append(", shopId=").append(shopId)
         sb.append(", name=").append(name)
         sb.append(", shopTypeId=").append(shopTypeId)
         sb.append("]")

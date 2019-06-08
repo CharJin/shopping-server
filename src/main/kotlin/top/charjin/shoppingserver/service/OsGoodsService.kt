@@ -12,7 +12,6 @@ class OsGoodsService {
     @Resource
     private lateinit var osGoodsMapper: OsGoodsMapper
 
-
     fun deleteByPrimaryKey(id: Int?): Int {
         return osGoodsMapper.deleteByPrimaryKey(id)
     }
