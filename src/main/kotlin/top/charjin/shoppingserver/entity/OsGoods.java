@@ -38,6 +38,8 @@ public class OsGoods implements Serializable {
      */
     private String description;
 
+    private OsShop shop;
+
     public Integer getGoodsId() {
         return goodsId;
     }
@@ -108,6 +110,14 @@ public class OsGoods implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public OsShop getShop() {
+        return shop;
+    }
+
+    public void setShop(OsShop shop) {
+        this.shop = shop;
     }
 
     @Override

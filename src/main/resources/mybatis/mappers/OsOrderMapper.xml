@@ -23,7 +23,7 @@
                extends="BaseResultMap">
         <association property="shop" javaType="top.charjin.shoppingserver.entity.OsShop">
             <id property="shopId" column="shop_id"/>
-            <result property="shopName" column="goods_name"/>
+            <result property="shopName" column="shop_name"/>
             <result property="shopTypeId" column="shop_type_id"/>
         </association>
 

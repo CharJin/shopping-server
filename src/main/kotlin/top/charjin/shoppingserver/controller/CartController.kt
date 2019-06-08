@@ -38,17 +38,17 @@ class CartController {
     }
 
     @RequestMapping("/addGoods")
-    fun addGoods(userId: Int, goodsId: Int): Int {
+    fun addGoods(userId: Int, goodsId: Int, goodsNum: Int): Int {
         val cart = cartService.selectByPrimaryKey(userId, goodsId)
         return if (cart != null) {
-            cart.number++
+            cart.number += goodsNum
             cartService.updateByPrimaryKey(cart)
             1
         } else {
             val newCart = OsCart()
             newCart.userId = userId
             newCart.goodsId = goodsId
-            newCart.number = 1
+            newCart.number = goodsNum
             newCart.plan = "默认套餐"
             cartService.insert(newCart)
         }
