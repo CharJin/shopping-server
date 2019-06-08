@@ -46,11 +46,14 @@
             <id column="pay_id" jdbcType="INTEGER" property="payId"/>
         </association>
 
-        <collection property="orderDetail"
-                    resultMap="top.charjin.shoppingserver.mapper.OsOrderDetailMapper.BaseResultMap"
-                    ofType="top.charjin.shoppingserver.entity.OsOrderDetail">
-            <id property="orderId" javaType="INTEGER" column="order_id"/>
-        </collection>
+        <!--        <collection property="orderDetail"-->
+        <!--                    resultMap="top.charjin.shoppingserver.mapper.OsOrderDetailMapper.BaseResultMap"-->
+        <!--                    ofType="top.charjin.shoppingserver.entity.OsOrderDetail">-->
+        <!--            <id property="orderNo" javaType="INTEGER" column="order_no"/>-->
+        <!--        </collection>-->
+
+        <collection property="orderDetail" column="order_no"
+                    select="top.charjin.shoppingserver.mapper.OsOrderDetailMapper.selectByOrderNo"/>
 
 
     </resultMap>
@@ -255,7 +258,7 @@
         where os_shop.shop_id = os_order.shop_id
           and os_address.user_id = os_order.user_id
           and os_pay_business.pay_id = os_order.pay_channel
-          and os_order_detail.order_id = os_order.order_id
+          and os_order_detail.order_no = os_order.order_no
           and os_goods.goods_id = os_order_detail.goods_id
           and os_order.user_id = #{user_id}
     </select>

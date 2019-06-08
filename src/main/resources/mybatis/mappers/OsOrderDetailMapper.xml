@@ -6,6 +6,7 @@
         <id column="order_detail_id" jdbcType="INTEGER" property="orderDetailId"/>
         <result column="order_id" jdbcType="INTEGER" property="orderId"/>
         <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
         <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
         <result column="goods_price" jdbcType="FLOAT" property="goodsPrice"/>
         <result column="goods_mode" jdbcType="VARCHAR" property="goodsMode"/>
@@ -14,25 +15,11 @@
         <result column="goods_amount_total" jdbcType="FLOAT" property="goodsAmountTotal"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="is_exists" jdbcType="BOOLEAN" property="isExists"/>
-
-        <association property="goods" javaType="top.charjin.shoppingserver.entity.OsGoods">
-            <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
-            <result column="goods_type_id" jdbcType="INTEGER" property="goodsTypeId"/>
-            <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
-            <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
-            <result column="image" jdbcType="VARCHAR" property="image"/>
-            <result column="price" jdbcType="FLOAT" property="price"/>
-            <result column="sales_volume" jdbcType="SMALLINT" property="salesVolume"/>
-            <result column="region" jdbcType="VARCHAR" property="region"/>
-            <result column="description" jdbcType="VARCHAR" property="description"/>
-        </association>
     </resultMap>
-
-
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        order_detail_id, order_id, goods_id, goods_name, goods_price, goods_mode, goods_mode_params,
-        goods_num, goods_amount_total, remark, is_exists
+        order_detail_id, order_id, goods_id, order_no, goods_name, goods_price, goods_mode,
+        goods_mode_params, goods_num, goods_amount_total, remark, is_exists
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -49,14 +36,14 @@
     <insert id="insert" keyColumn="order_detail_id" keyProperty="orderDetailId"
             parameterType="top.charjin.shoppingserver.entity.OsOrderDetail" useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_order_detail (order_id, goods_id, goods_name,
-        goods_price, goods_mode, goods_mode_params,
-        goods_num, goods_amount_total, remark,
-        is_exists)
-        values (#{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR},
-        #{goodsPrice,jdbcType=FLOAT}, #{goodsMode,jdbcType=VARCHAR}, #{goodsModeParams,jdbcType=VARCHAR},
-        #{goodsNum,jdbcType=INTEGER}, #{goodsAmountTotal,jdbcType=FLOAT}, #{remark,jdbcType=VARCHAR},
-        #{isExists,jdbcType=BOOLEAN})
+        insert into os_order_detail (order_id, goods_id, order_no,
+        goods_name, goods_price, goods_mode,
+        goods_mode_params, goods_num, goods_amount_total,
+        remark, is_exists)
+        values (#{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR},
+        #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=FLOAT}, #{goodsMode,jdbcType=VARCHAR},
+        #{goodsModeParams,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, #{goodsAmountTotal,jdbcType=FLOAT},
+        #{remark,jdbcType=VARCHAR}, #{isExists,jdbcType=BOOLEAN})
     </insert>
     <insert id="insertSelective" keyColumn="order_detail_id" keyProperty="orderDetailId"
             parameterType="top.charjin.shoppingserver.entity.OsOrderDetail" useGeneratedKeys="true">
@@ -68,6 +55,9 @@
             </if>
             <if test="goodsId != null">
                 goods_id,
+            </if>
+            <if test="orderNo != null">
+                order_no,
             </if>
             <if test="goodsName != null">
                 goods_name,
@@ -100,6 +90,9 @@
             </if>
             <if test="goodsId != null">
                 #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=VARCHAR},
             </if>
             <if test="goodsName != null">
                 #{goodsName,jdbcType=VARCHAR},
@@ -137,6 +130,9 @@
             <if test="goodsId != null">
                 goods_id = #{goodsId,jdbcType=INTEGER},
             </if>
+            <if test="orderNo != null">
+                order_no = #{orderNo,jdbcType=VARCHAR},
+            </if>
             <if test="goodsName != null">
                 goods_name = #{goodsName,jdbcType=VARCHAR},
             </if>
@@ -169,6 +165,7 @@
         update os_order_detail
         set order_id = #{orderId,jdbcType=INTEGER},
         goods_id = #{goodsId,jdbcType=INTEGER},
+        order_no = #{orderNo,jdbcType=VARCHAR},
         goods_name = #{goodsName,jdbcType=VARCHAR},
         goods_price = #{goodsPrice,jdbcType=FLOAT},
         goods_mode = #{goodsMode,jdbcType=VARCHAR},
@@ -179,4 +176,10 @@
         is_exists = #{isExists,jdbcType=BOOLEAN}
         where order_detail_id = #{orderDetailId,jdbcType=INTEGER}
     </update>
+
+    <select id="selectByOrderNo" resultMap="BaseResultMap">
+        select *
+        from os_order_detail
+        where order_no = #{orderNo}
+    </select>
 </mapper>

@@ -1,6 +1,9 @@
 package top.charjin.shoppingserver.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import top.charjin.shoppingserver.entity.OsOrderDetail;
+
+import java.util.List;
 
 public interface OsOrderDetailMapper {
     int deleteByPrimaryKey(Integer orderDetailId);
@@ -14,4 +17,6 @@ public interface OsOrderDetailMapper {
     int updateByPrimaryKeySelective(OsOrderDetail record);
 
     int updateByPrimaryKey(OsOrderDetail record);
+
+    List<OsOrderDetail> selectByOrderNo(@Param("orderNo") String orderNo);
 }
