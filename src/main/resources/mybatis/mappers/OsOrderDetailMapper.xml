@@ -19,7 +19,7 @@
             <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
             <result column="goods_type_id" jdbcType="INTEGER" property="goodsTypeId"/>
             <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
-            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="goodsName" jdbcType="VARCHAR" property="goodsName"/>
             <result column="image" jdbcType="VARCHAR" property="image"/>
             <result column="price" jdbcType="FLOAT" property="price"/>
             <result column="sales_volume" jdbcType="SMALLINT" property="salesVolume"/>

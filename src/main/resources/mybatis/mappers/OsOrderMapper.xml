@@ -23,7 +23,7 @@
                extends="BaseResultMap">
         <association property="shop" javaType="top.charjin.shoppingserver.entity.OsShop">
             <id property="shopId" column="shop_id"/>
-            <result property="name" column="name"/>
+            <result property="shopName" column="goods_name"/>
             <result property="shopTypeId" column="shop_type_id"/>
         </association>
 
@@ -41,30 +41,15 @@
             <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         </association>
 
-        <collection property="orderDetail" ofType="top.charjin.shoppingserver.entity.OsOrderDetail">
-            <id property="orderId" javaType="INTEGER" column="order_id"/>
-            <result column="order_detail_id" jdbcType="INTEGER" property="orderDetailId"/>
-            <result column="order_id" jdbcType="INTEGER" property="orderId"/>
-            <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
-            <result column="goods_price" jdbcType="FLOAT" property="goodsPrice"/>
-            <result column="goods_mode" jdbcType="VARCHAR" property="goodsMode"/>
-            <result column="goods_mode_params" jdbcType="VARCHAR" property="goodsModeParams"/>
-            <result column="goods_num" jdbcType="INTEGER" property="goodsNum"/>
-            <result column="goods_amount_total" jdbcType="FLOAT" property="goodsAmountTotal"/>
-            <result column="remark" jdbcType="VARCHAR" property="remark"/>
-            <result column="is_exists" jdbcType="BOOLEAN" property="isExists"/>
+        <association resultMap="top.charjin.shoppingserver.mapper.OsPayBusinessMapper.BaseResultMap"
+                     property="payBusiness" javaType="top.charjin.shoppingserver.entity.OsPayBusiness">
+            <id column="pay_id" jdbcType="INTEGER" property="payId"/>
+        </association>
 
-            <association property="goods" javaType="top.charjin.shoppingserver.entity.OsGoods">
-                <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
-                <result column="goods_type_id" jdbcType="INTEGER" property="goodsTypeId"/>
-                <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
-                <result column="name" jdbcType="VARCHAR" property="name"/>
-                <result column="image" jdbcType="VARCHAR" property="image"/>
-                <result column="price" jdbcType="FLOAT" property="price"/>
-                <result column="sales_volume" jdbcType="SMALLINT" property="salesVolume"/>
-                <result column="region" jdbcType="VARCHAR" property="region"/>
-                <result column="description" jdbcType="VARCHAR" property="description"/>
-            </association>
+        <collection property="orderDetail"
+                    resultMap="top.charjin.shoppingserver.mapper.OsOrderDetailMapper.BaseResultMap"
+                    ofType="top.charjin.shoppingserver.entity.OsOrderDetail">
+            <id property="orderId" javaType="INTEGER" column="order_id"/>
         </collection>
 
 
@@ -259,31 +244,27 @@
         where order_id = #{orderId,jdbcType=INTEGER}
     </update>
 
-    <!--    <resultMap extends="BaseResultMap" id="OrderModelResultMap" type="top.charjin.shoppingserver.model.OsOrderModel">-->
-    <!--        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>-->
-    <!--        <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>-->
-    <!--        <result column="price" jdbcType="FLOAT" property="price"/>-->
-    <!--        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>-->
-    <!--        <result column="image" jdbcType="VARCHAR" property="image"/>-->
-    <!--    </resultMap>-->
     <select id="selectAllOrders" resultMap="BaseResultMapCascade">
         select *
         from os_order,
              os_shop,
              os_address,
              os_order_detail,
+             os_pay_business,
              os_goods
         where os_shop.shop_id = os_order.shop_id
           and os_address.user_id = os_order.user_id
-          and os_order.user_id = #{user_id}
+          and os_pay_business.pay_id = os_order.pay_channel
           and os_order_detail.order_id = os_order.order_id
+          and os_goods.goods_id = os_order_detail.goods_id
+          and os_order.user_id = #{user_id}
     </select>
 
 
     <!--  <select shopId="selectAllOrders" resultMap="OrderModelResultMap">
           select
           <include refid="Base_Column_List" />,
-          shop_id,os_shop.name as shop_name,os_goods.name as goods_name,price,image
+          shop_id,os_shop.goodsName as shop_name,os_goods.goodsName as goods_name,price,image
           from os_order,
           os_shop,
           os_goods

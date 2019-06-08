@@ -1,16 +1,14 @@
 package top.charjin.shoppingserver.model;
 
 
-import top.charjin.shoppingserver.entity.OsAddress;
-import top.charjin.shoppingserver.entity.OsOrder;
-import top.charjin.shoppingserver.entity.OsOrderDetail;
-import top.charjin.shoppingserver.entity.OsShop;
+import top.charjin.shoppingserver.entity.*;
 
 import java.util.List;
 
 public class OsOrderModel extends OsOrder {
     private OsShop shop;
     private OsAddress address;
+    private OsPayBusiness payBusiness;
     private List<OsOrderDetail> orderDetail;
 
     public OsShop getShop() {
@@ -27,6 +25,14 @@ public class OsOrderModel extends OsOrder {
 
     public void setAddress(OsAddress address) {
         this.address = address;
+    }
+
+    public OsPayBusiness getPayBusiness() {
+        return payBusiness;
+    }
+
+    public void setPayBusiness(OsPayBusiness payBusiness) {
+        this.payBusiness = payBusiness;
     }
 
     public List<OsOrderDetail> getOrderDetail() {

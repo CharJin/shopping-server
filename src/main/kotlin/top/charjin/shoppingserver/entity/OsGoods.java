@@ -16,7 +16,7 @@ public class OsGoods implements Serializable {
     /**
      * 商品名
      */
-    private String name;
+    private String goodsName;
     /**
      * 商品展示图片,存放路径,多图片使用分隔符"^^^"
      */
@@ -62,12 +62,12 @@ public class OsGoods implements Serializable {
         this.shopId = shopId;
     }
 
-    public String getName() {
-        return name;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
     public String getImage() {
@@ -119,7 +119,7 @@ public class OsGoods implements Serializable {
         sb.append(", goodsId=").append(goodsId);
         sb.append(", goodsTypeId=").append(goodsTypeId);
         sb.append(", shopId=").append(shopId);
-        sb.append(", name=").append(name);
+        sb.append(", goodsName=").append(goodsName);
         sb.append(", image=").append(image);
         sb.append(", price=").append(price);
         sb.append(", salesVolume=").append(salesVolume);

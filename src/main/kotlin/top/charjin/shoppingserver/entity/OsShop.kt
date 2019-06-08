@@ -5,7 +5,7 @@ import java.io.Serializable
 class OsShop : Serializable {
     var shopId: Int? = null
 
-    var name: String? = null
+    var shopName: String? = null
 
     /**
      * 商品类型(shopId)
@@ -18,7 +18,7 @@ class OsShop : Serializable {
         sb.append(" [")
         sb.append("Hash = ").append(hashCode())
         sb.append(", shopId=").append(shopId)
-        sb.append(", name=").append(name)
+        sb.append(", shopName=").append(shopName)
         sb.append(", shopTypeId=").append(shopTypeId)
         sb.append("]")
         return sb.toString()

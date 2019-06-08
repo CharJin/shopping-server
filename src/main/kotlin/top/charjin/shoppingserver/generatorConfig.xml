@@ -14,25 +14,25 @@
         </jdbcConnection>
 
         <javaTypeResolver>
-            <property name="forceBigDecimals" value="false"/>
+            <property goodsName="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
         <javaModelGenerator targetPackage="top.charjin.shoppingserver.entity" targetProject="./src/main/java">
-            <property name="enableSubPackages" value="true"/>
-            <property name="trimStrings" value="true"/>
+            <property goodsName="enableSubPackages" value="true"/>
+            <property goodsName="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="mappers" targetProject="./src/main/resources">
-            <property name="enableSubPackages" value="true"/>
+            <property goodsName="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="top.charjin.shoppingserver.mapper"
                              targetProject="./src/main/java">
-            <property name="enableSubPackages" value="true"/>
+            <property goodsName="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <table schema="DB2ADMIN" tableName="os_user" domainObjectName="UserModel">
-            <property name="useActualColumnNames" value="true"/>
+            <property goodsName="useActualColumnNames" value="true"/>
             <generatedKey column="ID" sqlStatement="DB2" identity="true"/>
             <columnOverride column="DATE_FIELD" property="startDate"/>
             <ignoreColumn column="FRED"/>
