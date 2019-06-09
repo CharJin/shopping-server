@@ -1,7 +1,7 @@
 package top.charjin.shoppingserver.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class OsOrder implements Serializable {
     private Integer orderId;
@@ -39,19 +39,19 @@ public class OsOrder implements Serializable {
     /**
      * 订单创建时间
      */
-    private Date orderCreateTime;
+    private Timestamp orderCreateTime;
     /**
      * 订单支付时间
      */
-    private Date orderPayTime;
+    private Timestamp orderPayTime;
     /**
      * 订单完成事件(用户确认收货后)
      */
-    private Date orderFulfilTime;
+    private Timestamp orderFulfilTime;
     /**
      * 订单状态(0:待付款 1:待发货 2:待收货 3:待评论)
      */
-    private Byte orderStatus;
+    private Integer orderStatus;
     /**
      * 物流单号
      */
@@ -125,35 +125,35 @@ public class OsOrder implements Serializable {
         this.orderFreight = orderFreight;
     }
 
-    public Date getOrderCreateTime() {
+    public Timestamp getOrderCreateTime() {
         return orderCreateTime;
     }
 
-    public void setOrderCreateTime(Date orderCreateTime) {
+    public void setOrderCreateTime(Timestamp orderCreateTime) {
         this.orderCreateTime = orderCreateTime;
     }
 
-    public Date getOrderPayTime() {
+    public Timestamp getOrderPayTime() {
         return orderPayTime;
     }
 
-    public void setOrderPayTime(Date orderPayTime) {
+    public void setOrderPayTime(Timestamp orderPayTime) {
         this.orderPayTime = orderPayTime;
     }
 
-    public Date getOrderFulfilTime() {
+    public Timestamp getOrderFulfilTime() {
         return orderFulfilTime;
     }
 
-    public void setOrderFulfilTime(Date orderFulfilTime) {
+    public void setOrderFulfilTime(Timestamp orderFulfilTime) {
         this.orderFulfilTime = orderFulfilTime;
     }
 
-    public Byte getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Byte orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 

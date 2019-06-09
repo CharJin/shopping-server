@@ -14,7 +14,7 @@
         <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime"/>
         <result column="order_pay_time" jdbcType="TIMESTAMP" property="orderPayTime"/>
         <result column="order_fulfil_time" jdbcType="TIMESTAMP" property="orderFulfilTime"/>
-        <result column="order_status" jdbcType="TINYINT" property="orderStatus"/>
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus"/>
         <result column="logistics_no" jdbcType="VARCHAR" property="logisticsNo"/>
         <result column="pay_channel" jdbcType="INTEGER" property="payChannel"/>
     </resultMap>

@@ -24,8 +24,8 @@ mybatis:
   type-aliases-package: top.charjin.shoppingserver.entity
   mapper-locations: classpath:mybatis/mappers/*.xml
   #  config-location: classpath:mybatis/mybatis-config.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 

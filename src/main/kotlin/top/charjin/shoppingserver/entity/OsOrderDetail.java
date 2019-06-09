@@ -3,6 +3,8 @@ package top.charjin.shoppingserver.entity;
 import java.io.Serializable;
 
 public class OsOrderDetail implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * 主键id
      */
@@ -18,7 +20,11 @@ public class OsOrderDetail implements Serializable {
      */
     private Integer goodsId;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 订单编号,与商品id构成唯一键
+     */
+    private String orderNo;
+
 
     /**
      * 商品名称(商品可能被商家删除,故需做记录)
@@ -59,10 +65,9 @@ public class OsOrderDetail implements Serializable {
      * 记录商品是否被店家删除
      */
     private Boolean isExists;
-    /**
-     * 订单编号,与商品id构成唯一键
-     */
-    private String orderNo;
+
+    private OsGoods goods;
+
 
     public Integer getOrderDetailId() {
         return orderDetailId;
@@ -158,6 +163,14 @@ public class OsOrderDetail implements Serializable {
 
     public void setIsExists(Boolean isExists) {
         this.isExists = isExists;
+    }
+
+    public OsGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(OsGoods goods) {
+        this.goods = goods;
     }
 
     @Override

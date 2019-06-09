@@ -9,40 +9,40 @@ import javax.annotation.Resource
 class OsCartService {
 
     @Resource
-    private val osCartMapper: OsCartMapper? = null
+    private lateinit var osCartMapper: OsCartMapper
 
 
     fun deleteByPrimaryKey(userId: Int?, goodsId: Int?): Int {
-        return osCartMapper!!.deleteByPrimaryKey(userId, goodsId)
+        return osCartMapper.deleteByPrimaryKey(userId, goodsId)
     }
 
 
     fun insert(record: OsCart): Int {
-        return osCartMapper!!.insert(record)
+        return osCartMapper.insert(record)
     }
 
 
     fun insertSelective(record: OsCart): Int {
-        return osCartMapper!!.insertSelective(record)
+        return osCartMapper.insertSelective(record)
     }
 
 
     fun selectByPrimaryKey(userId: Int?, goodsId: Int?): OsCart? {
-        return osCartMapper!!.selectByPrimaryKey(userId, goodsId)
+        return osCartMapper.selectByPrimaryKey(userId, goodsId)
     }
 
 
     fun updateByPrimaryKeySelective(record: OsCart): Int {
-        return osCartMapper!!.updateByPrimaryKeySelective(record)
+        return osCartMapper.updateByPrimaryKeySelective(record)
     }
 
 
     fun updateByPrimaryKey(record: OsCart): Int {
-        return osCartMapper!!.updateByPrimaryKey(record)
+        return osCartMapper.updateByPrimaryKey(record)
     }
 
     fun updateGoodsNum(userId: Int, goodsId: Int, number: Int): Int {
-        return osCartMapper!!.updateGoodsNum(userId, goodsId, number)
+        return osCartMapper.updateGoodsNum(userId, goodsId, number)
     }
 
 

@@ -15,6 +15,9 @@
         <result column="goods_amount_total" jdbcType="FLOAT" property="goodsAmountTotal"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="is_exists" jdbcType="BOOLEAN" property="isExists"/>
+
+        <association property="goods" column="goods_id"
+                     select="top.charjin.shoppingserver.mapper.OsGoodsMapper.selectByPrimaryKey"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
