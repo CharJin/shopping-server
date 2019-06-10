@@ -4,11 +4,11 @@
     <resultMap id="BaseResultMap" type="top.charjin.shoppingserver.entity.OsPayBusiness">
         <!--@mbg.generated-->
         <id column="pay_id" jdbcType="INTEGER" property="payId"/>
-        <result column="goodsName" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        pay_id, `goodsName`
+        pay_id, `name`
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -25,8 +25,8 @@
     <insert id="insert" keyColumn="pay_id" keyProperty="payId"
             parameterType="top.charjin.shoppingserver.entity.OsPayBusiness" useGeneratedKeys="true">
         <!--@mbg.generated-->
-        insert into os_pay_business (`goodsName`)
-        values (#{goodsName,jdbcType=VARCHAR})
+        insert into os_pay_business (`name`)
+        values (#{name,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="pay_id" keyProperty="payId"
             parameterType="top.charjin.shoppingserver.entity.OsPayBusiness" useGeneratedKeys="true">
@@ -34,12 +34,12 @@
         insert into os_pay_business
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="goodsName != null">
-                `goodsName`,
+                `name`,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="goodsName != null">
-                #{goodsName,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -48,7 +48,7 @@
         update os_pay_business
         <set>
             <if test="goodsName != null">
-                `goodsName` = #{goodsName,jdbcType=VARCHAR},
+                `name` = #{name,jdbcType=VARCHAR},
             </if>
         </set>
         where pay_id = #{payId,jdbcType=INTEGER}
@@ -56,7 +56,7 @@
     <update id="updateByPrimaryKey" parameterType="top.charjin.shoppingserver.entity.OsPayBusiness">
         <!--@mbg.generated-->
         update os_pay_business
-        set `goodsName` = #{goodsName,jdbcType=VARCHAR}
+        set `name` = #{name,jdbcType=VARCHAR}
         where pay_id = #{payId,jdbcType=INTEGER}
     </update>
 </mapper>

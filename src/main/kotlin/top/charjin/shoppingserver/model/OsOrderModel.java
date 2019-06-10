@@ -9,7 +9,7 @@ public class OsOrderModel extends OsOrder {
     private OsShop shop;
     private OsAddress address;
     private OsPayBusiness payBusiness;
-    private List<OsOrderDetail> orderDetail;
+    private List<OsOrderDetail> orderDetailList;
 
     public OsShop getShop() {
         return shop;
@@ -35,11 +35,11 @@ public class OsOrderModel extends OsOrder {
         this.payBusiness = payBusiness;
     }
 
-    public List<OsOrderDetail> getOrderDetail() {
-        return orderDetail;
+    public List<OsOrderDetail> getOrderDetailList() {
+        return orderDetailList;
     }
 
-    public void setOrderDetail(List<OsOrderDetail> orderDetail) {
-        this.orderDetail = orderDetail;
+    public void setOrderDetailList(List<OsOrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
     }
 }

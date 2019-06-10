@@ -11,6 +11,9 @@ import top.charjin.shoppingserver.model.ResultMap
 import top.charjin.shoppingserver.service.OsCartService
 import top.charjin.shoppingserver.service.OsOrderDetailService
 import top.charjin.shoppingserver.service.OsOrderService
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.annotation.Resource
 
 
@@ -36,7 +39,6 @@ class OrderController {
 
     @RequestMapping("/addOrder")
     fun insertOrder(@RequestBody order: OsOrder): ResultMap<String> {
-        println(order)
         val affectedRowNum = orderService.insertSelective(order)
 
         return if (affectedRowNum > 0) ResultMap(201, "订单详请信息创建成功!", "")
@@ -48,7 +50,6 @@ class OrderController {
     fun insertOrderDetail(@RequestBody orderDetailGoodsList: List<OsOrderDetail>, @RequestParam("userId") userId: Int): ResultMap<String> {
         var affectedRowNum = 0
         orderDetailGoodsList.forEach {
-            println(it)
             affectedRowNum += orderDetailService.insertSelective(it)
             cartService.deleteByPrimaryKey(userId, it.goodsId)
         }
@@ -58,9 +59,11 @@ class OrderController {
 
     @RequestMapping("/updateOrderStatusByOrderNo")
     fun updateOrderStatusByOrderNo(@RequestBody orderNoList: List<String>, orderStatus: Int): Int {
+        val nowTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("zh")).format(Date())
+        val timestamp = Timestamp.valueOf(nowTime)
         var affectedRowNum = 0
         orderNoList.forEach {
-            affectedRowNum += orderService.updateOrderStatusByOrderNo(it, orderStatus)
+            affectedRowNum += orderService.updateOrderStatusByOrderNo(it, orderStatus, timestamp)
         }
         return affectedRowNum
     }

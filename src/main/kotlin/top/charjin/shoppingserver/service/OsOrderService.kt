@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import top.charjin.shoppingserver.entity.OsOrder
 import top.charjin.shoppingserver.mapper.OsOrderMapper
 import top.charjin.shoppingserver.model.OsOrderModel
+import java.sql.Timestamp
 
 import javax.annotation.Resource
 
@@ -47,8 +48,8 @@ class OsOrderService {
         return osOrderMapper.selectAllOrders(user_id)
     }
 
-    fun updateOrderStatusByOrderNo(orderNo: String, orderStatus: Int): Int {
-        return osOrderMapper.updateOrderStatusByOrderNo(orderNo, orderStatus)
+    fun updateOrderStatusByOrderNo(orderNo: String, orderStatus: Int, timestamp: Timestamp): Int {
+        return osOrderMapper.updateOrderStatusByOrderNo(orderNo, orderStatus, timestamp)
     }
 }
 

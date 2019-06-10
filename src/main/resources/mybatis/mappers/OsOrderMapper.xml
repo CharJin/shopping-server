@@ -41,18 +41,17 @@
             <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         </association>
 
-        <association resultMap="top.charjin.shoppingserver.mapper.OsPayBusinessMapper.BaseResultMap"
-                     property="payBusiness" javaType="top.charjin.shoppingserver.entity.OsPayBusiness">
-            <id column="pay_id" jdbcType="INTEGER" property="payId"/>
-        </association>
+        <association property="payBusiness" column="pay_channel"
+                     select="top.charjin.shoppingserver.mapper.OsPayBusinessMapper.selectByPrimaryKey"
+                     javaType="top.charjin.shoppingserver.entity.OsPayBusiness"/>
 
-        <!--        <collection property="orderDetail"-->
+        <!--        <collection property="orderDetailList"-->
         <!--                    resultMap="top.charjin.shoppingserver.mapper.OsOrderDetailMapper.BaseResultMap"-->
         <!--                    ofType="top.charjin.shoppingserver.entity.OsOrderDetail">-->
         <!--            <id property="orderNo" javaType="INTEGER" column="order_no"/>-->
         <!--        </collection>-->
 
-        <collection property="orderDetail" column="order_no"
+        <collection property="orderDetailList" column="order_no"
                     select="top.charjin.shoppingserver.mapper.OsOrderDetailMapper.selectByOrderNo"/>
 
 
@@ -261,7 +260,22 @@
           and os_order_detail.order_no = os_order.order_no
           and os_goods.goods_id = os_order_detail.goods_id
           and os_order.user_id = #{user_id}
+        order by os_order.order_create_time desc
     </select>
+
+    <update id="updateOrderStatusByOrderNo">
+        update os_order
+        set
+        order_status = #{orderStatus}
+        <if test='orderStatus == 1'>
+            ,order_pay_time = #{timestamp}
+        </if>
+        <if test='orderStatus == 3'>
+            ,order_fulfil_time = #{timestamp}
+        </if>
+        where order_no = #{orderNo}
+
+    </update>
 
 
     <!--  <select shopId="selectAllOrders" resultMap="OrderModelResultMap">
