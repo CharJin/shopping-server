@@ -27,4 +27,6 @@ public interface OsGoodsMapper {
     List<OsGoods> getGoodsByKey(@Nullable String key);
 
     List<OsGoods> getAllGoodsByShopId(@Param("shopId") int shopId);
+
+    List<OsGoods> selectBannerGoodsRandom(@Param("num") int num);
 }

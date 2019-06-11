@@ -184,4 +184,11 @@
         from os_goods
         where shop_id = #{shopId}
     </select>
+    <select id="selectBannerGoodsRandom" parameterType="integer" resultMap="BaseResultMap">
+        select *
+        from os_goods
+        order by RAND()
+        limit #{num}
+    </select>
+
 </mapper>

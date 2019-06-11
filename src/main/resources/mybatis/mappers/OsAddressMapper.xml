@@ -169,7 +169,7 @@
     <select id="getAllAddressByUserId" parameterType="integer" resultMap="BaseResultMap">
         select *
         from os_address
-        where user_id = 1
+        where user_id = #{userId,jdbcType=INTEGER}
         order by (case when is_default = 1 THEN 1 else 2 end), #把默认地址排在第一个
                  update_time desc
     </select>

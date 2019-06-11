@@ -57,5 +57,9 @@ class OsGoodsService {
         return osGoodsMapper.getAllGoodsByShopId(shopId)
     }
 
+    fun selectBannerGoodsRandom(num: Int): List<OsGoods> {
+        return osGoodsMapper.selectBannerGoodsRandom(num)
+    }
+
 
 }

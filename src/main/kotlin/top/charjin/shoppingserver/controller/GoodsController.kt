@@ -36,4 +36,12 @@ class GoodsController {
 
     @RequestMapping("/getGoodsById")
     fun getGoodsById(goodsId: Int) = goodsService.selectByPrimaryKey(goodsId)
+
+    @RequestMapping("/getBannerGoods")
+    fun getBannerGoods(): List<OsGoods> {
+        val num = (0..4).random() + 4
+        println(num)
+        return goodsService.selectBannerGoodsRandom(num)
+    }
+
 }
