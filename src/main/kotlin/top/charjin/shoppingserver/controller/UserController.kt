@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import top.charjin.shoppingserver.entity.OsUser
+import top.charjin.shoppingserver.model.ResultModel
 import top.charjin.shoppingserver.service.OsUserService
 import javax.annotation.Resource
 
@@ -32,9 +33,13 @@ class UserController {
      * 插入与修改相同,如果操作成功均返回"1"(1条记录受影响),"0"(无记录受影响)
      */
     @RequestMapping("/register", method = [RequestMethod.POST])
-    fun registerNewUser(@RequestBody user: OsUser): Int {
-        println(user)
-        return userService.insertSelective(user)
+    fun registerNewUser(@RequestBody user: OsUser): ResultModel<OsUser?> {
+        return if (userService.checkExistUserName(user.username))
+            ResultModel(202, "该用户名已存在!", null)
+        else {
+            userService.insertSelective(user)
+            ResultModel(200, "用户注册成功!", null)
+        }
     }
 
 

@@ -9,44 +9,47 @@ import javax.annotation.Resource
 class OsUserService {
 
     @Resource
-    private val osUserMapper: OsUserMapper? = null
+    private lateinit var osUserMapper: OsUserMapper
 
 
     fun deleteByPrimaryKey(id: Int?): Int {
-        return osUserMapper!!.deleteByPrimaryKey(id)
+        return osUserMapper.deleteByPrimaryKey(id)
     }
 
 
     fun insert(record: OsUser): Int {
-        return osUserMapper!!.insert(record)
+        return osUserMapper.insert(record)
     }
 
 
     fun insertSelective(record: OsUser): Int {
-        return osUserMapper!!.insertSelective(record)
+        return osUserMapper.insertSelective(record)
     }
 
 
     fun selectByPrimaryKey(id: Int?): OsUser {
-        return osUserMapper!!.selectByPrimaryKey(id)
+        return osUserMapper.selectByPrimaryKey(id)
     }
 
 
     fun updateByPrimaryKeySelective(record: OsUser): Int {
-        return osUserMapper!!.updateByPrimaryKeySelective(record)
+        return osUserMapper.updateByPrimaryKeySelective(record)
     }
 
 
     fun updateByPrimaryKey(record: OsUser): Int {
-        return osUserMapper!!.updateByPrimaryKey(record)
+        return osUserMapper.updateByPrimaryKey(record)
     }
 
 
     fun selectByUsernamePwd(username: String, password: String): OsUser? {
-        return osUserMapper!!.selectByUsernamePwd(username, password)
+        return osUserMapper.selectByUsernamePwd(username, password)
     }
 
     fun updateByUserNamePwdSelective(user: OsUser): Int {
-        return osUserMapper!!.updateByUserNamePwdSelective(user)
+        return osUserMapper.updateByUserNamePwdSelective(user)
     }
+
+
+    fun checkExistUserName(username: String): Boolean = osUserMapper.selectCountByUserName(username) > 0
 }

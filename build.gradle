@@ -24,14 +24,18 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
-    implementation 'org.springframework.boot:spring-boot-devtools:2.1.4.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-devtools:2.1.5.RELEASE'
     implementation 'org.webjars:bootstrap:4.3.1'
     implementation 'com.alibaba:fastjson:1.2.58'
+
+
+//    implementation 'org.springframework.boot:spring-boot-starter-test'
 
 
     runtimeOnly 'mysql:mysql-connector-java'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'junit:junit'
 }
 
 compileKotlin {
@@ -46,4 +50,13 @@ compileTestKotlin {
         freeCompilerArgs = ['-Xjsr305=strict']
         jvmTarget = '1.8'
     }
+
+//    gradle.taskGraph.whenReady {
+//        tasks.each { task ->
+//            if (task.name.contains("test"))
+//            {
+//                task.enabled = false
+//            }
+//        }
+//    }
 }
