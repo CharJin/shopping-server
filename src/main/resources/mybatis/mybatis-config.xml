@@ -3,7 +3,11 @@
 <configuration>
 
     <settings>
-        <setting goodsName="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
+
+    <typeAliases>
+        <package name="top.charjin.shoppingserver.entity"/>
+    </typeAliases>
 
 </configuration>
