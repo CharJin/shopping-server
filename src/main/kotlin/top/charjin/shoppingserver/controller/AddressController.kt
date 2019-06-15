@@ -2,6 +2,7 @@ package top.charjin.shoppingserver.controller
 
 import org.springframework.web.bind.annotation.*
 import top.charjin.shoppingserver.entity.OsAddress
+import top.charjin.shoppingserver.model.ResultModel
 import top.charjin.shoppingserver.service.OsAddressService
 import javax.annotation.Resource
 
@@ -20,9 +21,13 @@ class AddressController {
 
 
     @RequestMapping("/getDefaultAddress")
-    fun getDefaultAddress(@RequestParam("userId") userId: Int): OsAddress? {
+    fun getDefaultAddress(@RequestParam("userId") userId: Int): ResultModel<OsAddress?> {
 //        return addressService.getDefaultAddressByUserId(userId)
-        return getAllAddress(userId)?.get(0)
+        val addressList: List<OsAddress> = getAllAddress(userId)!!
+        return if (addressList.isNotEmpty())
+            ResultModel(200, "success", addressList.first())
+        else
+            ResultModel(202, "error", null)
     }
 
 
