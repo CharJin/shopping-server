@@ -45,5 +45,5 @@ class OsCartService {
         return osCartMapper.updateGoodsNum(userId, goodsId, number)
     }
 
-
+    fun removeGoodsByUserId(userId: Int, goodsList: List<Int>) = osCartMapper.removeGoodsByUserId(userId, goodsList)
 }

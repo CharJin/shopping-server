@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import top.charjin.shoppingserver.entity.OsCart;
 
+import java.util.List;
+
 public interface OsCartMapper {
     int deleteByPrimaryKey(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
 
@@ -23,4 +25,6 @@ public interface OsCartMapper {
 
     @Update("update os_cart set number = #{number} where user_id = #{userId} and goods_id = #{goodsId}")
     int updateGoodsNum(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId, @Param("number") Integer number);
+
+    void removeGoodsByUserId(@Param("userId") int userId, @Param("goodsList") List<Integer> goodsList);
 }

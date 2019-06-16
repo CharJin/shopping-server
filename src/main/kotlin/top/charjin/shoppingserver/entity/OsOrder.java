@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class OsOrder implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer orderId;
-
     /**
      * 外键,用户id
      */
     private Integer userId;
-
-    private static final long serialVersionUID = 1L;
     /**
      * 外键,商店id，一次提交订单按店铺生成
      */

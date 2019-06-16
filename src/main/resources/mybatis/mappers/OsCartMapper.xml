@@ -88,5 +88,13 @@
         and goods_id = #{goodsId,jdbcType=INTEGER}
     </update>
 
+    <delete id="removeGoodsByUserId">
+        delete from os_cart where user_id = #{userId} and goods_id in
+        <foreach collection="goodsList" item="goodsId" open="(" separator="," close=")">
+            #{goodsId,jdbcType=INTEGER}
+        </foreach>
+
+    </delete>
+
 
 </mapper>

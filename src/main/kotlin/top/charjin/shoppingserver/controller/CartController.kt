@@ -1,8 +1,6 @@
 package top.charjin.shoppingserver.controller
 
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import top.charjin.shoppingserver.entity.OsCart
 import top.charjin.shoppingserver.model.OsCartModel
 import top.charjin.shoppingserver.service.OsCartService
@@ -58,5 +56,9 @@ class CartController {
     fun addGoodsNum(userId: Int, goodsId: Int, number: Int): Int =
             cartService.updateGoodsNum(userId, goodsId, number)
 
+
+    @RequestMapping(value = ["/removeGoods"], method = [RequestMethod.POST])
+    fun removeGoodsByUserId(@RequestParam("userId") userId: Int, @RequestBody goodsList: List<Int>) =
+            cartService.removeGoodsByUserId(userId, goodsList)
 
 }
