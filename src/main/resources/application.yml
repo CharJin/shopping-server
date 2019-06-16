@@ -15,8 +15,8 @@ spring:
   mvc:
     view:
       prefix: shoppingserver
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
 
 #  thymeleaf:
 #    suffix: .html
