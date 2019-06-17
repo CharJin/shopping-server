@@ -52,7 +52,7 @@ class CartController {
         }
     }
 
-    @RequestMapping("/addGoodsNum")
+    @RequestMapping("/updateGoodsNum")
     fun addGoodsNum(userId: Int, goodsId: Int, number: Int): Int =
             cartService.updateGoodsNum(userId, goodsId, number)
 
